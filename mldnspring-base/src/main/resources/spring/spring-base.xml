@@ -5,7 +5,7 @@
 	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
+	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept" scope="prototype">
 		<property name="deptno" value="10"/>
 		<property name="dname" value="MLDN教学研发部"/>
 	</bean>
