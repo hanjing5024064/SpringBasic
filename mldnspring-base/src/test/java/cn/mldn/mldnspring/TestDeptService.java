@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -14,7 +16,8 @@ import junit.framework.TestCase;
 @ContextConfiguration(locations = { "classpath:spring/spring-base.xml" }) // 进行资源文件定位
 @RunWith(SpringJUnit4ClassRunner.class) 				// 设置要使用的测试工具
 public class TestDeptService {
-	@Resource(name="deptServiceNew")			// 注入指定名称的Bean对象
+	@Autowired
+	@Qualifier("deptServiceNew")			// 注入指定名称的Bean对象
 	private IDeptService deptService; 			// 注入业务对象 
 
 	@Test
