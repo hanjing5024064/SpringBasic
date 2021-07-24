@@ -6,7 +6,10 @@ import java.io.Serializable;
 public class Dept implements Serializable {
 	private Long deptno ;
 	private String dname ;
-	// setter、getter、toString()略
+	public Dept() {
+		System.out.println("****** 【Dept对象实例化】 " + super.toString() + " ******");
+	}
+	// setter、getter略
 	public Long getDeptno() {
 		return deptno;
 	}
@@ -21,7 +24,7 @@ public class Dept implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Dept [deptno=" + deptno + ", dname=" + dname + "]";
+		return "部门编号：" + this.deptno + "、部门名称：" + this.dname + "、对象信息：" + super.toString() ;
 	}
 	
 }
