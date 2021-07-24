@@ -5,29 +5,13 @@
 	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
-		<constructor-arg name="paramDeptno" value="10"/>			<!-- 第一个参数 -->
-		<constructor-arg name="paramDname" value="MLDN教学研发部"/>	<!-- 第二个参数 -->
+	<bean id="mydept" class="cn.mldn.mldnspring.vo.Dept">					<!-- 名称与属性不同 -->
+		<property name="deptno" value="10"/>
+		<property name="dname" value="MLDN教学研发部"/>
 	</bean>
-	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
+	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp" autowire="byType">	<!-- 配置Bean对象 -->
 		<property name="empno" value="7369"/>
-		<property name="ename" value="李兴华-A"/>
-		<property name="salary" value="960.00"/>
-		<property name="age" value="18"/>
-		<property name="hiredate">
-			<bean class="java.util.Date"/>				<!-- 内部Bean -->
-		</property> 
-		<property name="dept" ref="dept"/>				<!-- 引入其它配置Bean -->
-	</bean>
-	<bean id="empB" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
-		<property name="empno" value="7839"/>
-		<property name="ename" value="李兴华-B"/>
-		<property name="salary" value="960.00"/>
-		<property name="age" value="19"/>
-		<property name="hiredate">
-			<bean class="java.util.Date"/>				<!-- 内部Bean -->
-		</property> 
-		<property name="dept" ref="dept"/>				<!-- 引入其它配置Bean -->
+		<property name="ename" value="李兴华"/>
 	</bean>
 
 </beans>
