@@ -1,0 +1,26 @@
+package cn.mldn.mldnspring;
+
+import java.util.Arrays;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import cn.mldn.mldnspring.vo.Dept;
+@ContextConfiguration(locations = { "classpath:spring/spring-base.xml" })	// 进行资源文件定位
+@RunWith(SpringJUnit4ClassRunner.class)	// 设置要使用的测试工具
+public class TestDept {
+	@Resource
+	private Dept dept ;		// 注入对象
+	@Test
+	public void testBean() {
+		System.out.println("部门编号：" + this.dept.getDeptno() + "、部门名称：" + this.dept.getDname());
+		System.out.println("部门信息：" + Arrays.toString(this.dept.getInfos()));
+		this.dept.getEmps().forEach((emp)->{	// 循环输出部门信息
+			System.out.println("雇员信息：" + emp);
+		});
+	}
+} 
