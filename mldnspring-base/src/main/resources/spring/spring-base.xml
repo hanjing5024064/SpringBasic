@@ -5,7 +5,7 @@
 	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-	<bean id="mydept" class="cn.mldn.mldnspring.vo.Dept">					<!-- 名称与属性不同 -->
+	<bean id="mydept" class="cn.mldn.mldnspring.vo.Dept" primary="true"><!-- 名称与属性不同 -->
 		<property name="deptno" value="10"/>
 		<property name="dname" value="MLDN教学研发部"/>
 	</bean>
@@ -13,7 +13,7 @@
 		<property name="deptno" value="20"/>
 		<property name="dname" value="极限IT学习部"/>
 	</bean>
-	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp" autowire="byName">	<!-- 配置Bean对象 -->
+	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp" autowire="byType">	<!-- 配置Bean对象 -->
 		<property name="empno" value="7369"/>
 		<property name="ename" value="李兴华"/>
 	</bean>
