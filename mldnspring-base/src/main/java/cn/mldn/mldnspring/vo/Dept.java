@@ -1,13 +1,13 @@
 package cn.mldn.mldnspring.vo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class Dept implements Serializable {
 	private Long deptno ;
 	private String dname ;
-	private Set<String> infos ;		// 描述部门信息
+	private Map<String,Emp> emps ;		// 描述雇员信息
 	// setter、getter、toString()略
 	public Long getDeptno() {
 		return deptno;
@@ -21,11 +21,11 @@ public class Dept implements Serializable {
 	public void setDname(String dname) {
 		this.dname = dname;
 	}
-	public void setInfos(Set<String> infos) {
-		this.infos = infos;
+	public void setEmps(Map<String, Emp> emps) {
+		this.emps = emps;
 	}
-	public Set<String> getInfos() {
-		return infos;
+	public Map<String, Emp> getEmps() {
+		return emps;
 	}
 	@Override
 	public String toString() {

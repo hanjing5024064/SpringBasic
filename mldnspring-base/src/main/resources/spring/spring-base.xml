@@ -8,13 +8,12 @@
 	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
 		<property name="deptno" value="10"/>
 		<property name="dname" value="MLDN教学研发部"/>
-		<property name="infos">		<!-- 注入数组对象 -->
-			<set>
-				<value>魔乐科技在线学习（www.mldn.cn）</value>
-				<value>魔乐科技在线学习（www.mldn.cn）</value>
-				<value>魔乐科技训练营（www.mldnjava.cn）</value>
-				<value>极限IT训练营（www.jixianit.com）</value>
-			</set>
+		<property name="emps">		<!-- 注入Map集合对象 -->
+			<map>				
+				<entry key="mldnuser-a" value-ref="empA"/>
+				<entry key="mldnuser-a" value-ref="empA"/>
+				<entry key="mldnuser-b" value-ref="empB"/>
+			</map>
 		</property>
 	</bean>
 	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
