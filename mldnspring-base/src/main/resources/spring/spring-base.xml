@@ -8,6 +8,11 @@
 	<bean id="messageImpl" class="cn.mldn.mldnspring.service.impl.MessageImpl" />
 	
 	<bean id="hiredateObject" class="java.util.Date"/> 		<!-- 配置了系统类 -->
+	
+	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
+		<property name="deptno" value="10"/>
+		<property name="dname" value="MLDN教学研发部"/>
+	</bean>
 	<bean id="emp" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
 		<property name="empno" value="7369"/>
 		<property name="ename" value="李兴华"/>
@@ -16,6 +21,7 @@
 		<property name="hiredate">
 			<bean class="java.util.Date"/>					<!-- 内部Bean -->
 		</property>
-		<!-- <property name="hiredate" ref="hiredateObject"/> --><!-- 引用外部类 --> 
+		<!-- <property name="hiredate" ref="hiredateObject"/> --><!-- 引用外部类 -->
+		<property name="dept" ref="dept"/>					<!-- 引入其它配置Bean --> 
 	</bean>
 </beans>

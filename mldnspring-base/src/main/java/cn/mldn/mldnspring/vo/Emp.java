@@ -10,7 +10,8 @@ public class Emp implements Serializable {
 	private Integer age ;
 	private Double salary ;
 	private Date hiredate ; 
-	// setter、getter略
+	private Dept dept ;
+	// setter、getter、toString()略
 	public Long getEmpno() {
 		return empno;
 	}
@@ -40,6 +41,12 @@ public class Emp implements Serializable {
 	}
 	public void setHiredate(Date hiredate) {
 		this.hiredate = hiredate;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+	public Dept getDept() {
+		return dept;
 	}
 	@Override
 	public String toString() {

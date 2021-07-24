@@ -16,5 +16,6 @@ public class TestEmp {
 	@Test
 	public void testEcho() {
 		System.out.println(this.emp); 
+		System.out.println(this.emp.getDept()); 
 	}
 }
