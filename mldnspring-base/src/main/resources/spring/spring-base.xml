@@ -9,7 +9,7 @@
 		<property name="deptno" value="10"/>
 		<property name="dname" value="MLDN教学研发部"/>
 	</bean>
-	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">					<!-- 名称与属性相同 -->
+	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">					<!-- 名称与属性相同 也可以增加设置取消候选项：autowrite-candidate="false"-->
 		<property name="deptno" value="20"/>
 		<property name="dname" value="极限IT学习部"/>
 	</bean>
