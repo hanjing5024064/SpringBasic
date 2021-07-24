@@ -16,8 +16,5 @@ public class TestDept {
 	@Test
 	public void testBean() {
 		System.out.println("部门编号：" + this.dept.getDeptno() + "、部门名称：" + this.dept.getDname());
-		this.dept.getInfos().forEach((key,value)->{	// 循环输出部门信息
-			System.out.println("\t|- key = " + key + "、value = " + value);
-		});
 	}
 } 

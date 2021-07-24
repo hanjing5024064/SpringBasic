@@ -6,15 +6,8 @@
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
-		<property name="deptno" value="10"/>
-		<property name="dname" value="MLDN教学研发部"/>
-		<property name="infos">		<!-- 注入Properties集合对象 -->
-			<props>
-				<prop key="mldn">魔乐科技在线学习（www.mldn.cn）</prop>
-				<prop key="mldnjava">魔乐科技训练营（www.mldnjava.cn）</prop>
-				<prop key="jixianit">极限IT训练营（www.jixianit.com）</prop>
-			</props>
-		</property> 
+		<constructor-arg value="10"/>			<!-- 第一个参数 -->
+		<constructor-arg  value="MLDN教学研发部"/>	<!-- 第二个参数 -->
 	</bean>
 	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
 		<property name="empno" value="7369"/>

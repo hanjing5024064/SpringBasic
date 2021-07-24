@@ -1,14 +1,15 @@
 package cn.mldn.mldnspring.vo;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.Properties;
 
 @SuppressWarnings("serial")
 public class Dept implements Serializable {
 	private Long deptno ;
 	private String dname ;
-	private Properties infos ;		// 描述信息
+	public Dept(Long deptno,String dname) {
+		this.deptno = deptno ;
+		this.dname = dname ;
+	}
 	// setter、getter、toString()略
 	public Long getDeptno() {
 		return deptno;
@@ -21,12 +22,6 @@ public class Dept implements Serializable {
 	}
 	public void setDname(String dname) {
 		this.dname = dname;
-	}
-	public void setInfos(Properties infos) {
-		this.infos = infos;
-	}
-	public Properties getInfos() {
-		return infos;
 	}
 	@Override
 	public String toString() {
