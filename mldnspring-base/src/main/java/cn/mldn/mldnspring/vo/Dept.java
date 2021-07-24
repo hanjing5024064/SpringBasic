@@ -1,11 +1,13 @@
 package cn.mldn.mldnspring.vo;
 
+import java.beans.ConstructorProperties;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Dept implements Serializable {
 	private Long deptno ;
 	private String dname ;
+	@ConstructorProperties(value= {"paramDeptno","paramDname"})
 	public Dept(Long deptno,String dname) {
 		this.deptno = deptno ;
 		this.dname = dname ;

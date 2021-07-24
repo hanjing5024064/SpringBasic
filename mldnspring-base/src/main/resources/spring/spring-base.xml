@@ -6,8 +6,8 @@
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<bean id="dept" class="cn.mldn.mldnspring.vo.Dept">
-		<constructor-arg value="10"/>			<!-- 第一个参数 -->
-		<constructor-arg  value="MLDN教学研发部"/>	<!-- 第二个参数 -->
+		<constructor-arg name="paramDeptno" value="10"/>			<!-- 第一个参数 -->
+		<constructor-arg name="paramDname" value="MLDN教学研发部"/>	<!-- 第二个参数 -->
 	</bean>
 	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
 		<property name="empno" value="7369"/>
