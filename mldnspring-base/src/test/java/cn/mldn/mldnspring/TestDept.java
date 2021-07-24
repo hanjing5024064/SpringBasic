@@ -1,7 +1,5 @@
 package cn.mldn.mldnspring;
 
-import java.util.Arrays;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -18,9 +16,8 @@ public class TestDept {
 	@Test
 	public void testBean() {
 		System.out.println("部门编号：" + this.dept.getDeptno() + "、部门名称：" + this.dept.getDname());
-		System.out.println("部门信息：" + Arrays.toString(this.dept.getInfos()));
-		this.dept.getEmps().forEach((emp)->{	// 循环输出部门信息
-			System.out.println("雇员信息：" + emp);
+		this.dept.getInfos().forEach((info)->{	// 循环输出部门信息
+			System.out.println("\t|- 信息：" + info);
 		});
 	}
 } 

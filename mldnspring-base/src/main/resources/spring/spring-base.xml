@@ -9,17 +9,12 @@
 		<property name="deptno" value="10"/>
 		<property name="dname" value="MLDN教学研发部"/>
 		<property name="infos">		<!-- 注入数组对象 -->
-			<array><!-- 也可以使用list，Spring会自动转换ArrayList -->
+			<set>
+				<value>魔乐科技在线学习（www.mldn.cn）</value>
 				<value>魔乐科技在线学习（www.mldn.cn）</value>
 				<value>魔乐科技训练营（www.mldnjava.cn）</value>
 				<value>极限IT训练营（www.jixianit.com）</value>
-			</array>
-		</property>
-		<property name="emps">		<!-- 注入该部门中的所有雇员信息 -->
-			<list><!-- 也可以使用array，Spring会自动转换ArrayList -->
-				<ref bean="empA"/>	<!-- 引用雇员Bean对象 -->
-				<ref bean="empB"/>	<!-- 引用雇员Bean对象 -->
-			</list>
+			</set>
 		</property>
 	</bean>
 	<bean id="empA" class="cn.mldn.mldnspring.vo.Emp">		<!-- 配置Bean对象 -->
