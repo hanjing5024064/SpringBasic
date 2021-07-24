@@ -8,5 +8,6 @@
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<bean id="message" class="cn.mldn.mldnspring.vo.Message" init-method="initMessage" destroy-method="destroyMessage"/>
+	<context:annotation-config />			<!-- 开启扫描配置，可以不定义 -->
+	<context:component-scan base-package="cn.mldn.mldnspring" />	<!-- 此包下的所有注解自动生效 -->
 </beans>
