@@ -12,10 +12,8 @@
 	<context:component-scan base-package="cn.mldn.mldnspring" />	<!-- 此包下的所有注解自动生效 -->
 	<bean id="resourceBean" class="cn.mldn.mldnspring.resource.util.DefaultResourceBean">
 		<property name="resources">
-			<list>
-				<value>http://www.baidu.com</value>
-				<value>classpath:spring/spring-base.xml</value>
-				<!-- <value>file:d:/mldn.txt</value> -->
+			<list>	<!-- 此时将加载spring以及其所有子目录中以spring-开头的配置文件 -->
+				<value>classpath:spring/**/spring-*.xml</value>
 			</list>
 		</property>
 	</bean>
