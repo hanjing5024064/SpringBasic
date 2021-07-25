@@ -10,11 +10,15 @@
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:annotation-config />			<!-- 开启扫描配置，可以不定义 -->
 	<context:component-scan base-package="cn.mldn.mldnspring" />	<!-- 此包下的所有注解自动生效 -->
-	<bean id="resourceBean" 
-		class="cn.mldn.mldnspring.resource.util.DefaultResourceBean">
-		<property name="resource" value="classpath:spring/spring-base.xml"/>
-		<!-- <property name="resource" value="http://www.baidu.com"/> -->
-		<!-- <property name="resource" value="file:/var/text.txt"/> -->
+	<bean id="resourceBean" class="cn.mldn.mldnspring.resource.util.DefaultResourceBean">
+		<property name="resources">
+			<list>
+				<value>http://www.baidu.com</value>
+				<value>classpath:spring/spring-base.xml</value>
+				<!-- <value>file:d:/mldn.txt</value> -->
+			</list>
+		</property>
 	</bean>
+
 
 </beans>

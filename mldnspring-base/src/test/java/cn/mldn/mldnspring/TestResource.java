@@ -1,5 +1,6 @@
 package cn.mldn.mldnspring;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.junit.Test;
@@ -14,14 +15,18 @@ import cn.mldn.mldnspring.resource.util.DefaultResourceBean;
 @RunWith(SpringJUnit4ClassRunner.class)	// 设置要使用的测试工具
 public class TestResource {
 	@Autowired
-	private DefaultResourceBean resourceBean ;	// 注入资源Bean对象
+	private DefaultResourceBean resourceBean ;
 	@Test
 	public void testResource() throws Exception { 
-		Scanner scan = new Scanner(this.resourceBean.getResource().getInputStream()) ;
-		scan.useDelimiter("\n") ;
-		while (scan.hasNext()) {
-			System.out.print(scan.next()); 
+		Iterator<org.springframework.core.io.Resource> iter = this.resourceBean.getResources().iterator() ;
+		while (iter.hasNext()) {
+			Scanner scan = new Scanner(iter.next().getInputStream()) ;
+			scan.useDelimiter("\n") ;
+			while (scan.hasNext()) {
+				System.out.print(scan.next()); 
+			}
+			scan.close(); 
+			System.out.println("******************************************");
 		}
-		scan.close(); 
-	}
+	} 
 }
