@@ -8,14 +8,13 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 public class SpELFirstDemo {
 	public static void main(String[] args) {
-		String str = "(\"Hello \" + \"World !!!\").substring(6,12)" ;	// 表达式定义
-		// 1、定义一个专属的表达式的解析工具
-		ExpressionParser parser = new SpelExpressionParser() ;	// 定义一个Spring表达式解析器
-		// 2、定义一个表达式的处理类
-		Expression exp = parser.parseExpression(str) ;	// 从字符串里面解析出内容
-		// 3、进行最终表达式的计算
-		EvaluationContext context = new StandardEvaluationContext() ;
-		// 4、通过表达式进行结果的计算
-		System.out.println(exp.getValue(context));
+		String str = "(\"Hello \" + \"World !!!\").substring(#start,#end)" ;	// 表达式定义
+		ExpressionParser parser = new SpelExpressionParser() ;		// Spring表达式解析器
+		Expression exp = parser.parseExpression(str) ;				// 解析表达式
+		EvaluationContext context = new StandardEvaluationContext() ;	// 上下文计算
+		context.setVariable("start", 6); 							// 定义变量
+		context.setVariable("end", 12);								// 定义变量
+		System.out.println(exp.getValue(context));					// 表达式计算
+
 	}
 }
