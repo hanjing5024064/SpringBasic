@@ -4,11 +4,19 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="
-	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<context:component-scan base-package="cn.mldn.mldnspring.task" />	<!-- 此包下的所有注解自动生效 -->
-	<task:annotation-driven/> <!-- 启用Annotation的SpringTask配置 -->
-	<task:scheduler id="shedulePool" pool-size="2"/> <!-- 定义线程池中的线程数（Spirng默认单线程调度任务） -->
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<context:component-scan base-package="cn.mldn.mldnspring" />	<!-- 此包下的所有注解自动生效 -->
+	<bean id="serviceAdvice" class="cn.mldn.mldnspring.advice.ServiceAdvice"/>	<!-- 通知处理类 -->
+	<aop:config>				<!-- 进行AOP的配置处理 -->
+		<!-- 配置切入点AspectJ表达式，这个表达式直接决定了最终到底在那里去执行代理操作 -->
+		<aop:pointcut id="myPointcut" expression="execution(public * cn.mldn..service..*.*(..))" />
+		<aop:aspect ref="serviceAdvice">		<!-- 切入处理操作方法定义，设置程序类名称 -->
+			<aop:before method="handleBefore" pointcut-ref="myPointcut"/>	<!-- 引入切入点 -->
+			<aop:after method="handleAfter" pointcut-ref="myPointcut"/>		<!-- 引入切入点 -->
+		</aop:aspect>
+	</aop:config>
 </beans>

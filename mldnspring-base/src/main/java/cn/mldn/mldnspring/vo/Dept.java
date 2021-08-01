@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Dept {
-	@Value("#{item.createDate?.time}")
+	//@Value("#{item.createDate?.time}")
 	private Long deptno ;
-	@Value("#{item.title.toUpperCase()}")
+	//@Value("#{item.title.toUpperCase()}")
 	private String dname ;
 	@Value("#{'中国北京'.substring(2,4)}")
 	private String loc ;
