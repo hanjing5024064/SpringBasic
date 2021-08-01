@@ -10,5 +10,5 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:component-scan base-package="cn.mldn.mldnspring.task" />	<!-- 此包下的所有注解自动生效 -->
 	<task:annotation-driven/> <!-- 启用Annotation的SpringTask配置 -->
-
+	<task:scheduler id="shedulePool" pool-size="2"/> <!-- 定义线程池中的线程数（Spirng默认单线程调度任务） -->
 </beans>
