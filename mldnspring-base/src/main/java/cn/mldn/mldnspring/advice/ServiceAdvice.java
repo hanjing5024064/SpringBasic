@@ -7,4 +7,10 @@ public class ServiceAdvice {		// 该类不需要继承任何父类，独立存�
 	public void handleAfter() { 	// 处理后置操作通知
 		System.out.println("【### ServiceAdvice-handleAfter ###】进行业务的后置处理操作。");
 	}
+	public void handleReturn(String retMsg) { 	// 处理后置操作通知
+		System.out.println("【### ServiceAdvice-handleReturn ###】业务方法执行完毕：" + retMsg);
+	}
+	public void handleThrow(Exception exp) { // 异常处理通知
+		System.out.println("【### ServiceAdvice-handleThrow ###】方法执行产生了异常：" + exp);
+	}
 }

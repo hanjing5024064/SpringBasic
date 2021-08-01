@@ -16,6 +16,7 @@ public class TestMessageService {
 	private IMessageService messageService ;
 	@Test
 	public void testEcho() {
-		System.out.println(this.messageService.echo("www.mldn.cn")); 
+		System.out.println(this.messageService.echo("www.baidu.com")); 
+		System.out.println(this.messageService.echo(null)); //被后置异常拦截
 	}
 }

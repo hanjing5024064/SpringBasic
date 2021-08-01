@@ -17,8 +17,12 @@
 		<aop:aspect ref="serviceAdvice">		<!-- 切入处理操作方法定义，设置程序类名称 -->
 			<aop:before method="handleBefore" 
 				pointcut="execution(public * cn.mldn..service..*.*(..)) and args(msg)" 
-				arg-names="msg"/>				<!-- 定义新的切入点，将参数传入处理前置通知 -->
+				arg-names="msg"/>				<!-- 定义新的切入点 -->
 			<aop:after method="handleAfter" pointcut-ref="myPointcut"/>		<!-- 引入切入点 -->
+			<!-- 定义后置返回通知，需要将方法的返回数据传递到方法之中 -->
+			<aop:after-returning method="handleReturn" pointcut-ref="myPointcut" returning="val" arg-names="val"/>
+			<!-- 定义后置异常通知，需要将产生的异常对象传递到方法之中 -->
+			<aop:after-throwing method="handleThrow" pointcut-ref="myPointcut" throwing="e" arg-names="e"/>
 		</aop:aspect>
 	</aop:config>
 </beans>
