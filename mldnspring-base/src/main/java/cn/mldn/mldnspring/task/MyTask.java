@@ -1,12 +1,9 @@
 package cn.mldn.mldnspring.task;
 
 import java.text.SimpleDateFormat;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-public class MyTask extends QuartzJobBean { 	// 定义负责任务处理的程序类
-	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+
+public class MyTask {			// 不再强制性继承任何父类
+	protected void runTask() { 	// 随意定义的一个方法名称
 		System.out.println("【当前的日期时间】" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new java.util.Date()));
 	}
 }
