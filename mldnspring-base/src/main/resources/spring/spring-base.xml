@@ -9,13 +9,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-	<context:component-scan base-package="cn.mldn.mldnspring" />	<!-- 此包下的所有注解自动生效 -->
-	<bean id="serviceAdvice" class="cn.mldn.mldnspring.advice.ServiceAdvice"/>	<!-- 通知处理类 -->
-	<aop:config>				<!-- 进行AOP的配置处理 -->
-		<!-- 配置切入点AspectJ表达式，这个表达式直接决定了最终到底在那里去执行代理操作 -->
-		<aop:pointcut id="myPointcut" expression="execution(public * cn.mldn..service..*.*(..))" />
-		<aop:aspect ref="serviceAdvice">		<!-- 切入处理操作方法定义，设置程序类名称 -->
-			<aop:around method="handleRound" pointcut-ref="myPointcut"/>	<!-- 环绕通知 -->
-		</aop:aspect>
-	</aop:config>
+	<context:component-scan base-package="cn.mldn.mldnspring"/>
+	<aop:aspectj-autoproxy/> 			<!-- 启用AOP的Annotation支持 -->
 </beans>
