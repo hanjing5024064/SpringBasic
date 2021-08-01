@@ -15,7 +15,9 @@
 		<!-- 配置切入点AspectJ表达式，这个表达式直接决定了最终到底在那里去执行代理操作 -->
 		<aop:pointcut id="myPointcut" expression="execution(public * cn.mldn..service..*.*(..))" />
 		<aop:aspect ref="serviceAdvice">		<!-- 切入处理操作方法定义，设置程序类名称 -->
-			<aop:before method="handleBefore" pointcut-ref="myPointcut"/>	<!-- 引入切入点 -->
+			<aop:before method="handleBefore" 
+				pointcut="execution(public * cn.mldn..service..*.*(..)) and args(msg)" 
+				arg-names="msg"/>				<!-- 定义新的切入点，将参数传入处理前置通知 -->
 			<aop:after method="handleAfter" pointcut-ref="myPointcut"/>		<!-- 引入切入点 -->
 		</aop:aspect>
 	</aop:config>
