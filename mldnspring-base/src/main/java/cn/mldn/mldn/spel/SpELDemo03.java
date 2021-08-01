@@ -1,4 +1,4 @@
-package cn.mldn.mldnspring.spel;
+package cn.mldn.mldn.spel;
 
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
