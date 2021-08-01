@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- 定义了一个新的专门用于自定义任务调度方法的工厂任务类 -->
-	<bean id="methodTaskFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">	<!-- 定义要执行的任务程序类对象 -->
-			<bean class="cn.mldn.mldnspring.task.MyTask"/>	<!-- 任务执行类 -->
-		</property>
-		<property name="targetMethod" value="runTask"/>		<!-- 设置执行任务的处理方法 -->
-	</bean>
-
-	<!-- 要定义任务触发的工厂类，使用CRON进行任务的触发操作 -->
-	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="methodTaskFactory"/>	<!-- 定义任务详情 -->
-		<property name="cronExpression" value="* * * * * ?"/>	<!-- 每秒一触发 -->
-	</bean>
-	<!-- 配置任务的执行调度器 -->
-	<bean id="scheduleFactory"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">				<!-- 定义触发器 -->
-			<array>
-				<ref bean="cronTrigger" /> 	<!-- 设置任务触发器 -->
-			</array>
-		</property>
-	</bean>
+	<bean id="myTask" class="cn.mldn.mldnspring.task.MyTask"/>		<!-- 任务处理类 -->
+	<task:scheduled-tasks>		<!-- 进行SpringTask任务的调度配置 -->
+		<!-- 定义任务类与执行方法，与间隔调度的间隔时间 -->
+		<!-- <task:scheduled ref="myTask" method="runJobTask" fixed-rate="1000"/> -->
+		<!-- 定义处理任务的Bean对象与任务处理方法，同时设置调度时间 -->
+		<task:scheduled ref="myTask" method="runTask" cron="* * * * * ?"/>
+	</task:scheduled-tasks>
 
 </beans>
