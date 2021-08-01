@@ -26,4 +26,14 @@
 		<property name="repeatInterval" value="1000"/>	<!-- 任务间隔时间 -->
 	</bean>
 
+	<!-- 配置任务的执行调度器 -->
+	<bean id="scheduleFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">				<!-- 定义触发器 -->
+			<array>
+				<ref bean="simpleTrigger" /> 	<!-- 设置任务触发器 -->
+			</array>
+		</property>
+	</bean>
+
 </beans>
