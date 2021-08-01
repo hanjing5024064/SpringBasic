@@ -8,13 +8,7 @@
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-
-	<bean id="myTask" class="cn.mldn.mldnspring.task.MyTask"/>		<!-- 任务处理类 -->
-	<task:scheduled-tasks>		<!-- 进行SpringTask任务的调度配置 -->
-		<!-- 定义任务类与执行方法，与间隔调度的间隔时间 -->
-		<!-- <task:scheduled ref="myTask" method="runJobTask" fixed-rate="1000"/> -->
-		<!-- 定义处理任务的Bean对象与任务处理方法，同时设置调度时间 -->
-		<task:scheduled ref="myTask" method="runTask" cron="* * * * * ?"/>
-	</task:scheduled-tasks>
+	<context:component-scan base-package="cn.mldn.mldnspring.task" />	<!-- 此包下的所有注解自动生效 -->
+	<task:annotation-driven/> <!-- 启用Annotation的SpringTask配置 -->
 
 </beans>
