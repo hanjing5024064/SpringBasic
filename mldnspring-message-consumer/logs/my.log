@@ -1,0 +1,8 @@
+2018-02-01 16:52:59,548 INFO [org.apache.xbean.spring.context.ClassPathXmlApplicationContext] - Refreshing org.apache.xbean.spring.context.ClassPathXmlApplicationContext@626b2d4a: startup date [Thu Feb 01 16:52:59 CST 2018]; root of context hierarchy
+2018-02-01 16:52:59,648 INFO [org.apache.xbean.spring.context.v2.XBeanXmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [spring/spring-base.xml]
+2018-02-01 16:53:00,450 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Starting beans in phase 2147483647
+2018-02-01 16:53:00,690 INFO [org.springframework.jms.connection.SingleConnectionFactory] - Established shared JMS Connection: ActiveMQConnection {id=ID:yootk-pc-51429-1517475180542-1:1,clientId=null,started=false}
+2018-02-01 17:25:58,609 INFO [org.apache.xbean.spring.context.ClassPathXmlApplicationContext] - Refreshing org.apache.xbean.spring.context.ClassPathXmlApplicationContext@626b2d4a: startup date [Thu Feb 01 17:25:58 CST 2018]; root of context hierarchy
+2018-02-01 17:25:58,706 INFO [org.apache.xbean.spring.context.v2.XBeanXmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [spring/spring-base.xml]
+2018-02-01 17:25:59,506 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Starting beans in phase 2147483647
+2018-02-01 17:25:59,719 INFO [org.springframework.jms.connection.SingleConnectionFactory] - Established shared JMS Connection: ActiveMQConnection {id=ID:yootk-pc-51667-1517477159595-1:1,clientId=null,started=false}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<context:component-scan base-package="cn.mldn.mldnspring"/>
+	<context:property-placeholder location="classpath:config/*.properties"/>	<!-- 加载资源 -->
+	<!-- 在Spring之中需要通过一个ActiveMQ工厂操作 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<!-- 定义连接工厂要负责连接处理的程序的网络路径 -->
+		<property name="brokerURL" value="${activemq.broker.url}"/>		<!-- 连接地址 -->
+		<property name="userName" value="${activemq.user.name}"/>		<!-- 用户名 -->
+		<property name="password" value="${activemq.user.password}"/>	<!-- 密码 -->
+	</bean>
+	<!-- 定义消息的监听处理程序类 -->
+	<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<!-- 消息监听的连接工厂类 -->
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<!-- 消息监听的目的地 -->
+		<property name="destination" ref="destination"/>
+		<!-- 消息监听的处理程序类 -->
+		<property name="messageListener" ref="consumerMessageListener"/>
+	</bean>
+	<!-- 如果要想进行发送，则需要将ActiveMQ的处理交由JMS进行控制 -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<!-- 配置要进行连接处理的ActiveMQ的连接工厂类 -->
+		<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	</bean>
+	<!-- 需要定义一个消息发送的目的地的信息 -->
+	<bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg index="0" value="${activemq.topic.name}"/>
+	</bean>
+
+
+
+
+
+	
+</beans>
