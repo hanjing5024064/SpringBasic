@@ -30,67 +30,19 @@
 				class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 		</property>
 	</bean>
-	
-	<!-- 定义RedisCluster的配置项 -->
-	<bean id="redisClusterConfiguration"
-		class="org.springframework.data.redis.connection.RedisClusterConfiguration">
-		<property name="maxRedirects" value="${redis.cluster.max-redirect}"/>
-		<property name="clusterNodes">		<!-- 配置出集群中所有的节点 -->
-			<list>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-1.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-1.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-2.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-2.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-3.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-3.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-4.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-4.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-5.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-5.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-6.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-6.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-7.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-7.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-8.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-8.port}"/>
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg index="0" value="${redis.cluster.node-9.host}"/>
-					<constructor-arg index="1" value="${redis.cluster.node-9.port}"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	
-	
 	<!-- 首先进行Jedis连接池的相关配置 -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxTotal" value="${redis.pool.maxTotal}" />	<!-- 最大可用连接数 -->
 		<property name="maxIdle" value="${redis.pool.maxIdle}" />	<!-- 最小维持连接数 -->
 		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />	<!-- 最大等待时间 -->
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />	<!-- 确保取得可用连接 -->
 	</bean> 
 	<!-- 进行ConnectionFactory的配置 -->
-	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<!-- 配置所有的RedisCluster集群主机 -->
-		<constructor-arg name="clusterConfig" ref="redisClusterConfiguration"/>
-		<property name="poolConfig" ref="jedisPoolConfig"/>		<!-- 引用进行连接池的配置项 -->
-		<property name="password" value="${redis.password}"/>	<!-- 定义的是连接密码，认证密码 -->
-	</bean>
-	
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="poolConfig" ref="jedisPoolConfig" />	<!-- 引用进行连接池的配置项 -->
+		<property name="hostName" value="${redis.host}" />	<!-- Redis的连接地址 -->
+		<property name="password" value="${redis.password}" />	<!-- 定义的是连接密码，认证密码 -->
+		<property name="timeout" value="${redis.timeout}" />	<!-- 连接的超时时间 -->
+	</bean> 
 </beans>
