@@ -31,31 +31,52 @@
 		</property>
 	</bean>
 	
-	<!-- 进行所有的哨兵地址的配置项 -->
-	<bean id="sentinelsConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
-		<property name="master">				<!-- 配置master的节点名称 -->
-			<bean class="org.springframework.data.redis.connection.RedisNode">
-				<!-- 通过资源文件读取出master的名称进行配置 -->
-				<property name="name" value="${redis.sentinel.master.name}"/>
-			</bean>
-		</property>
-		<property name="sentinels">				<!-- 配置所有哨兵的连接地址信息 -->
-			<set>
+	<!-- 定义RedisCluster的配置项 -->
+	<bean id="redisClusterConfiguration"
+		class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+		<property name="maxRedirects" value="${redis.cluster.max-redirect}"/>
+		<property name="clusterNodes">		<!-- 配置出集群中所有的节点 -->
+			<list>
 				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg name="host" value="${redis.sentinel-1.host}"/>
-					<constructor-arg name="port" value="${redis.sentinel-1.port}"/>
+					<constructor-arg index="0" value="${redis.cluster.node-1.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-1.port}"/>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg name="host" value="${redis.sentinel-2.host}"/>
-					<constructor-arg name="port" value="${redis.sentinel-2.port}"/>
+					<constructor-arg index="0" value="${redis.cluster.node-2.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-2.port}"/>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisNode">
-					<constructor-arg name="host" value="${redis.sentinel-3.host}"/>
-					<constructor-arg name="port" value="${redis.sentinel-3.port}"/>
+					<constructor-arg index="0" value="${redis.cluster.node-3.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-3.port}"/>
 				</bean>
-			</set>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-4.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-4.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-5.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-5.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-6.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-6.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-7.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-7.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-8.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-8.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.cluster.node-9.host}"/>
+					<constructor-arg index="1" value="${redis.cluster.node-9.port}"/>
+				</bean>
+			</list>
 		</property>
 	</bean>
+
 	
 	
 	<!-- 首先进行Jedis连接池的相关配置 -->
@@ -66,8 +87,10 @@
 	</bean> 
 	<!-- 进行ConnectionFactory的配置 -->
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<constructor-arg name="sentinelConfig" ref="sentinelsConfiguration"/>
-		<property name="poolConfig" ref="jedisPoolConfig"/>		<!-- 引用连接池配置项 -->
-		<property name="password" value="${redis.password}"/>	<!-- 认证密码 -->
+		<!-- 配置所有的RedisCluster集群主机 -->
+		<constructor-arg name="clusterConfig" ref="redisClusterConfiguration"/>
+		<property name="poolConfig" ref="jedisPoolConfig"/>		<!-- 引用进行连接池的配置项 -->
+		<property name="password" value="${redis.password}"/>	<!-- 定义的是连接密码，认证密码 -->
 	</bean>
+	
 </beans>
