@@ -12,6 +12,6 @@ public class MessageServiceImpl implements IMessageService {
 		if (str == null) {
 			throw new RuntimeException("空消息，无法处理！") ;
 		}
-		return "【ECHO】msg = " + str;
+		return " 服务提供者【ECHO】msg = " + str;
 	}
 }

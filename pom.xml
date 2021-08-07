@@ -168,5 +168,6 @@
     <module>mldnspring-message-consumer</module>
     <module>mldnspring-ws-api</module>
     <module>mldnspring-ws-provider</module>
+    <module>mldnspring-ws-consumer</module>
 	</modules>
 </project>
