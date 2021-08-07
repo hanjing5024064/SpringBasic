@@ -25,6 +25,14 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+		
+			<!-- WebServiceProject -->
+			<dependency>
+				<groupId>cn.mldn</groupId>
+				<artifactId>mldnspring-ws-api</artifactId>
+				<version>${mldnspring.version}</version>
+			</dependency>
+			
 			<!-- ActiveMQ -->
 			<dependency>
 				<groupId>commons-logging</groupId>
@@ -157,5 +165,6 @@
 		<module>mldnspring-base</module>
     <module>mldnspring-message-provider</module>
     <module>mldnspring-message-consumer</module>
-  </modules>
+    <module>mldnspring-ws-api</module>
+	</modules>
 </project>
