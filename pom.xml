@@ -27,10 +27,24 @@
 		
 		<jedis.version>2.9.0</jedis.version>
 		<spring-data-redis.version>2.0.4.RELEASE</spring-data-redis.version>
+		
+		<mysql.version>8.0.11</mysql.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-			<!-- redis -->
+			<!-- JDBC -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+		
+			<!-- Redis -->
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-redis</artifactId>
@@ -203,5 +217,6 @@
     <module>mldnspring-ws-provider</module>
     <module>mldnspring-ws-consumer</module>
     <module>mldnspring-redis</module>
+    <module>mldnspring-jdbc</module>
 	</modules>
 </project>
