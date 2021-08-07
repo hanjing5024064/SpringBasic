@@ -24,9 +24,24 @@
 		<slf4j.version>1.7.21</slf4j.version>
 		<mldnspring.version>0.0.1</mldnspring.version>
 		<cxf.version>3.2.0</cxf.version>
+		
+		<jedis.version>2.9.0</jedis.version>
+		<spring-data-redis.version>2.0.4.RELEASE</spring-data-redis.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- redis -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring-data-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+		
 			<!-- CXF for WebService -->
 			<dependency>
 				<groupId>org.apache.cxf</groupId>
@@ -187,5 +202,6 @@
     <module>mldnspring-ws-api</module>
     <module>mldnspring-ws-provider</module>
     <module>mldnspring-ws-consumer</module>
+    <module>mldnspring-redis</module>
 	</modules>
 </project>
