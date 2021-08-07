@@ -23,9 +23,27 @@
 		<commons-logging.version>1.1.3</commons-logging.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<mldnspring.version>0.0.1</mldnspring.version>
+		<cxf.version>3.2.0</cxf.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- CXF for WebService -->
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxws</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http-jetty</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<!-- CXF for WebService -->
 		
 			<!-- WebServiceProject -->
 			<dependency>

@@ -7,6 +7,9 @@
 
 package cn.mldn.mldnspring.service;
 
+import javax.jws.WebService;
+
+@WebService
 public interface IMessageService extends java.rmi.Remote {
     public java.lang.String echo(java.lang.String arg0) throws java.rmi.RemoteException;
 }
