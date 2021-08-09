@@ -1,5 +1,7 @@
 package cn.mldn.mldnspring.test;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 
 import org.junit.Test;
@@ -7,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,4 +31,27 @@ public class TestJdbcTemplate {
 				pubdate, note, price, readcount); 	// 数据更新操作
 		this.logger.info("更新行数：" + len);			// 日志输出
 	} 
+
+	@Test
+	public void testAddPreparedStatementSetter() throws Exception {
+		String sql = "INSERT INTO news(title,pubdate,note,price,readcount) VALUES (?,?,?,?,?)" ;
+		String title = "MLDN魔乐科技" ;
+		Date pubdate = new Date() ;
+		String note = "技术教学：www.mldn.cn" ;
+		double price = 19800.0 ;
+		int readcount = 567000 ;
+		int len = this.jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, title);
+				ps.setDate(2, new java.sql.Date(pubdate.getTime()));
+				ps.setString(3, note);
+				ps.setDouble(4, price);
+				ps.setInt(5, readcount); 
+			}
+		}) ; 
+		this.logger.info("更新行数：" + len);			// 日志输出
+	} 
+	
+	
 }
