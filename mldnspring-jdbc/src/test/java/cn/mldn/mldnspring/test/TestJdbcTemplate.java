@@ -3,13 +3,17 @@ package cn.mldn.mldnspring.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,13 +21,44 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.mldn.mldnspring.vo.News;
+
 @ContextConfiguration(locations = { "classpath:spring/spring-*.xml" })
 @RunWith(SpringJUnit4ClassRunner.class) 			// 设置要使用的测试工具
 public class TestJdbcTemplate {
 	private Logger logger = org.slf4j.LoggerFactory.getLogger(TestJdbcTemplate.class) ;
 	@Autowired
 	private JdbcTemplate jdbcTemplate ;				// 注入JdbcTemplate对象
-
+	@Test
+	public void testBatch() {
+		String sql = "INSERT INTO news(title,pubdate,note,price,readcount) VALUES (?,?,?,?,?)";
+		List<News> allNews = new ArrayList<News>();
+		for (int x = 0; x < 10; x++) {
+			News vo = new News(); 
+			vo.setTitle("极限IT程序员" + x);
+			vo.setNote("www.jixianit.com");
+			vo.setPubdate(new Date());
+			vo.setPrice(999.00);
+			vo.setReadcount(89765);
+			allNews.add(vo);
+		}
+		int len[][] = this.jdbcTemplate.batchUpdate(sql, allNews, allNews.size(),
+				new ParameterizedPreparedStatementSetter<News>() {
+					@Override
+					public void setValues(PreparedStatement ps, News vo) throws SQLException {
+						ps.setString(1, vo.getTitle());
+						ps.setDate(2, new java.sql.Date(vo.getPubdate().getTime()));
+						ps.setString(3, vo.getNote());
+						ps.setDouble(4, vo.getPrice());
+						ps.setInt(5, vo.getReadcount());
+					}
+				});
+		for (int x = 0; x < len.length; x++) {
+			System.out.println("【" + x + "】更新记录：" + Arrays.toString(len[x]));
+		}
+	}
+	
+	
 	@Test
 	public void testDelete() {
 		String sql = "DELETE FROM news WHERE nid=?";
