@@ -34,6 +34,16 @@ public class TestJdbcTemplate {
 	private JdbcTemplate jdbcTemplate ;				// 注入JdbcTemplate对象
 	
 	@Test
+	public void testCount() {
+		String column = "title";
+		String keyWord = "极限IT";
+		String sql = "SELECT COUNT(*) FROM news WHERE " + column + " LIKE ?";
+		Long count = this.jdbcTemplate.queryForObject(sql, Long.class, "%" + keyWord + "%");
+		this.logger.info("数据量统计：" + count);
+	}
+
+	
+	@Test
 	public void testSplit() {
 		String column = "title";		// 查询列
 		String keyWord = "极限IT";		// 查询关键字
