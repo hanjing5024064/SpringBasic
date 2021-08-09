@@ -32,6 +32,31 @@ public class TestJdbcTemplate {
 	private Logger logger = org.slf4j.LoggerFactory.getLogger(TestJdbcTemplate.class) ;
 	@Autowired
 	private JdbcTemplate jdbcTemplate ;				// 注入JdbcTemplate对象
+	
+	@Test
+	public void testSplit() {
+		String column = "title";		// 查询列
+		String keyWord = "极限IT";		// 查询关键字
+		Long currentPage = 1L;			// 当前所在页
+		Integer lineSize = 5;			// 每页显示数据行
+		String sql = "SELECT nid,title,pubdate,note,price,readcount FROM news WHERE " + column + " LIKE ? LIMIT ?,?";
+		List<News> allNews = this.jdbcTemplate.query(sql,
+				new Object[] { "%" + keyWord + "%", (currentPage - 1) * lineSize, lineSize }, new RowMapper<News>() {
+					@Override
+					public News mapRow(ResultSet rs, int rowNum) throws SQLException {
+						News vo = new News();
+						vo.setNid(rs.getLong(1));
+						vo.setTitle(rs.getString(2)); 
+						vo.setPubdate(rs.getDate(3));
+						vo.setNote(rs.getString(4));
+						vo.setPrice(rs.getDouble(5));
+						vo.setReadcount(rs.getInt(6));
+						return vo;
+					}
+				});
+		this.logger.info(allNews.toString());
+	}
+	
 	@Test
 	public void testSingle() {
 		String sql = "SELECT nid,title,pubdate,note,price,readcount FROM news WHERE nid=?" ;
