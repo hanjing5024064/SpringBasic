@@ -23,6 +23,31 @@ public class TestJdbcTemplate {
 	private Logger logger = org.slf4j.LoggerFactory.getLogger(TestJdbcTemplate.class) ;
 	@Autowired
 	private JdbcTemplate jdbcTemplate ;				// 注入JdbcTemplate对象
+
+	@Test
+	public void testDelete() {
+		String sql = "DELETE FROM news WHERE nid=?";
+		long nid = 2;
+		int len = this.jdbcTemplate.update(sql, nid); 		// 更新操作
+		this.logger.info("更新行数：" + len);					// 日志输出
+	}
+
+	
+	@Test
+	public void testEdit() throws Exception {
+		String sql = "UPDATE news SET title=?,pubdate=?,note=?,price=?,readcount=? WHERE nid=?" ;
+		String title = "极限IT程序员" ;
+		Date pubdate = new Date() ;
+		String note = "线上培训：www.jixianit.com" ;
+		double price = 3980.0 ;
+		int readcount = 7867000 ;
+		long nid = 3 ; 
+		int len = this.jdbcTemplate.update(sql, title, 
+				pubdate, note, price, readcount,nid); 	 	// 数据更新操作
+		this.logger.info("更新行数：" + len);					// 日志输出
+	} 	
+	
+	
 	@Test
 	public void testAdd() throws Exception {
 		String sql = "INSERT INTO news(title,pubdate,note,price,readcount) VALUES (?,?,?,?,?)" ;
