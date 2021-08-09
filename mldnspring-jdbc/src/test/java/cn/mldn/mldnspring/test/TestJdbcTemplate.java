@@ -2,6 +2,7 @@ package cn.mldn.mldnspring.test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +17,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,6 +32,26 @@ public class TestJdbcTemplate {
 	private Logger logger = org.slf4j.LoggerFactory.getLogger(TestJdbcTemplate.class) ;
 	@Autowired
 	private JdbcTemplate jdbcTemplate ;				// 注入JdbcTemplate对象
+	@Test
+	public void testSingle() {
+		String sql = "SELECT nid,title,pubdate,note,price,readcount FROM news WHERE nid=?" ;
+		// 实现数据查询，传入所需要的SQL语句与参数（参数要通过对象数组包装），由于查询还需要通过RowMapper处理
+		News vo = this.jdbcTemplate.queryForObject(sql, new Object[] {6} , new RowMapper<News>() {
+			@Override 
+			public News mapRow(ResultSet rs, int rowNum) throws SQLException {
+				News vo = new News() ;
+				vo.setNid(rs.getLong(1));
+				vo.setTitle(rs.getString(2));
+				vo.setPubdate(rs.getDate(3));
+				vo.setNote(rs.getString(4));
+				vo.setPrice(rs.getDouble(5));
+				vo.setReadcount(rs.getInt(6));
+				return vo;
+			}}) ;
+		this.logger.info(vo.toString());
+	}
+
+	
 	@Test
 	public void testBatch() {
 		String sql = "INSERT INTO news(title,pubdate,note,price,readcount) VALUES (?,?,?,?,?)";

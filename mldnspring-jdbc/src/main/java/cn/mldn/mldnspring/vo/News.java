@@ -10,6 +10,7 @@ public class News implements Serializable {
 	private Double price ; 
 	private String note ;
 	private Integer readcount ;
+	// setter、getter、toString略
 	public Long getNid() {
 		return nid;
 	}
@@ -45,6 +46,11 @@ public class News implements Serializable {
 	}
 	public void setReadcount(Integer readcount) {
 		this.readcount = readcount;
+	}
+	@Override
+	public String toString() {
+		return "News [nid=" + nid + ", title=" + title + ", pubdate=" + pubdate + ", price=" + price + ", note=" + note
+				+ ", readcount=" + readcount + "]";
 	} 
 }
 
