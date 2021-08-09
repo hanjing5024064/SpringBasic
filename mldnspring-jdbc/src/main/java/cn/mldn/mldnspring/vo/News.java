@@ -47,10 +47,5 @@ public class News implements Serializable {
 	public void setReadcount(Integer readcount) {
 		this.readcount = readcount;
 	}
-	@Override
-	public String toString() {
-		return "News [nid=" + nid + ", title=" + title + ", pubdate=" + pubdate + ", price=" + price + ", note=" + note
-				+ ", readcount=" + readcount + "]";
-	} 
 }
 
