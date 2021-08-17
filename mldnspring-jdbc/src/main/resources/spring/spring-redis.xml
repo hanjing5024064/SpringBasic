@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 定义一个Redis数据库的操作模版，这个模版功能类可以帮助用户进行redis处理操作 -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory"/>	<!-- Redis连接工厂 -->
+	</bean>
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">	<!-- Jedis连接池配置 -->	
+		<property name="maxTotal" value="${redis.pool.maxTotal}"/>	<!-- 最大可用数 -->
+		<property name="maxIdle" value="${redis.pool.maxIdle}"/>	<!-- 最小维持数 -->
+		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}"/>	<!-- 等待时间 -->
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>	<!-- 确保可用连接 -->
+	</bean>
+	<!-- 进行ConnectionFactory的配置 -->
+	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="poolConfig" ref="jedisPoolConfig"/>	<!-- 引用连接池的配置 -->
+		<property name="hostName" value="${redis.host}"/>	<!-- 连接地址 -->
+		<property name="port" value="${redis.port}"/>	<!-- 连接端口 -->
+		<property name="password" value="${redis.password}"/>	<!-- 认证密码 -->
+		<property name="timeout" value="${redis.timeout}"/>	<!-- 连接超时时间 -->
+	</bean>
+</beans>
