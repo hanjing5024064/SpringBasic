@@ -9,4 +9,10 @@ public interface INewsDAO {
 	 * @return 新闻数据对象
 	 */
 	public News findById(Long nid) ;
+	/**
+	 * 更新新闻数据
+	 * @param vo 要更新的新闻数据
+	 * @return 更新成功返回true，否则返回false
+	 */
+	public boolean doUpdate(News vo) ; 
 }

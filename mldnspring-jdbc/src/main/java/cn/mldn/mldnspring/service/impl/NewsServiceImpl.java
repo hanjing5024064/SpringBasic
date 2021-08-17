@@ -14,5 +14,11 @@ public class NewsServiceImpl implements INewsService {
 	public News get(long nid) {
 		return this.newsDAO.findById(nid);
 	}
-
+	@Override
+	public News edit(News vo) {
+		if (this.newsDAO.doUpdate(vo)) {
+			return vo ;
+		} 
+		return null;
+	}
 }
