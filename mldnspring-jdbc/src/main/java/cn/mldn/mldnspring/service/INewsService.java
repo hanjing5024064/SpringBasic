@@ -10,6 +10,6 @@ public interface INewsService {
 	 * @param nid 新闻编号
 	 * @return 新闻数据对象
 	 */
-	@Cacheable(cacheNames = "news")	// 启用缓存，同时定义使用的缓存管理器中的缓存信息名称
+	@Cacheable(cacheNames = "news",key= "#nid")	
 	public News get(long nid) ;
 }
