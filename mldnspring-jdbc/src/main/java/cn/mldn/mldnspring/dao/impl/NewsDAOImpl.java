@@ -46,4 +46,11 @@ public class NewsDAOImpl implements INewsDAO {
 				vo.getPrice(), vo.getReadcount(), vo.getNid()); 	// 数据更新操作
 		return len > 0 ;
 	}
+	
+	@Override
+	public boolean doRemove(Long nid) {
+		String sql = "DELETE FROM news WHERE nid=?";
+		int len = this.jdbcTemplate.update(sql, nid); 		// 数据删除
+		return len > 0 ; 
+	}
 }

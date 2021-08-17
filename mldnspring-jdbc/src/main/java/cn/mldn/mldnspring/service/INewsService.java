@@ -1,5 +1,6 @@
 package cn.mldn.mldnspring.service;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -20,4 +21,12 @@ public interface INewsService {
 	 */
 	@CachePut(cacheNames = "news", key = "#vo.nid", unless="#result==null")
 	public News edit(News vo) ;  
+	
+	/**
+	 * 删除新闻数据
+	 * @param nid 新闻编号
+	 * @return 删除成功返回true，否则返回false
+	 */
+	@CacheEvict(cacheNames="news", key="#nid")
+	public boolean delete(long nid) ;
 }

@@ -16,6 +16,13 @@ import cn.mldn.mldnspring.vo.News;
 public class TestNewsService {
 	@Autowired
 	private INewsService newsService;
+	
+	@Test
+	public void testDelete() throws Exception {
+		System.out.println(this.newsService.get(6L));	// 指定数据缓存
+		this.newsService.delete(6L) ;					// 删除指定编号新闻，并且清除缓存
+		System.out.println(this.newsService.get(6L));	// 此时将无法获取缓存信息
+	}
 
 	@Test
 	public void testFindById() throws Exception {
@@ -24,7 +31,7 @@ public class TestNewsService {
 	}
 	@Test
 	public void testEdit() throws Exception {
-		System.out.println(this.newsService.get(3L));
+		System.out.println(this.newsService.get(3L));	// 查询指定编号数据，进行缓存
 		News vo = new News() ;
 		vo.setNid(3L);
 		vo.setTitle("MLDN新闻更新");
@@ -32,8 +39,7 @@ public class TestNewsService {
 		vo.setPrice(3980.00);
 		vo.setReadcount(97898);
 		vo.setPubdate(new Date());
-		this.newsService.edit(vo) ;
-		
-		System.out.println(this.newsService.get(3L));
+		this.newsService.edit(vo) ;						// 更新缓存中的数据
+		System.out.println(this.newsService.get(3L));	// 获取更新后的内容
 	}
 }

@@ -21,4 +21,8 @@ public class NewsServiceImpl implements INewsService {
 		} 
 		return null;
 	}
+	@Override
+	public boolean delete(long nid) {
+		return this.newsDAO.doRemove(nid);
+	}
 }
