@@ -29,9 +29,18 @@
 		<spring-data-redis.version>2.0.4.RELEASE</spring-data-redis.version>
 		
 		<mysql.version>8.0.11</mysql.version>
+		
+		<ehcache.version>2.10.4</ehcache.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+		<!-- ehcache -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+			
 			<!-- JDBC -->
 			<dependency>
 				<groupId>org.springframework</groupId>

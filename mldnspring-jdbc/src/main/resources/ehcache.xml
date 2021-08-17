@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<diskStore path="java.io.tmpdir" />		<!-- 设置临时缓存路径 -->
+	<!-- 配置默认的缓存区 -->
+	<defaultCache 
+		maxElementsInMemory="10000" 
+		eternal="true"
+		timeToIdleSeconds="120" 
+		timeToLiveSeconds="120" 
+		maxElementsOnDisk="10000000"
+		diskExpiryThreadIntervalSeconds="120" 
+		memoryStoreEvictionPolicy="FIFO" />
+	<!-- 配置news的缓存区，此名称为缓存注解应用名称 -->
+	<cache name="news" 
+		maxElementsInMemory="10000" 
+		eternal="true"
+		overflowToDisk="true" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600" />
+</ehcache>
