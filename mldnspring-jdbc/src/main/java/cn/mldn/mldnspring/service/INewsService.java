@@ -10,6 +10,6 @@ public interface INewsService {
 	 * @param nid 新闻编号
 	 * @return 新闻数据对象
 	 */
-	@Cacheable(cacheNames = "news",key= "#nid")	
+	@Cacheable(cacheNames = "news", key = "#nid", sync = true)
 	public News get(long nid) ;
 }
