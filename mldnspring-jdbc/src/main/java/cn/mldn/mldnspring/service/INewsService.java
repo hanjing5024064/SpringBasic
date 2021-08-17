@@ -4,6 +4,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 
 import cn.mldn.mldnspring.vo.News;
 
@@ -21,7 +22,10 @@ public interface INewsService {
 	 * @param vo 要更新的数据
 	 * @return 更新后的数据
 	 */
-	@CachePut(key = "#vo.nid", unless="#result==null")
+	@Caching(put= {
+			@CachePut(key = "#vo.nid",unless="#result==null"),
+			@CachePut(key = "#vo.title",unless="#result==null")
+	})
 	public News edit(News vo) ;  
 	
 	/**
