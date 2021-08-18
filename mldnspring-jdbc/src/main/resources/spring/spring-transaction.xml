@@ -13,4 +13,19 @@
 		<property name="dataSource" ref="dataSource"/> 	<!-- 定义要管理的DataSource -->
 	</bean>	
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 事务控制专门提供有切面程序类 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>	<!-- 配置事务控制属性，事务控制是以业务层的方法为主的，方法名称按照统一标准定义 -->
+			<tx:method name="add*" propagation="REQUIRED"/>		<!-- 设置了事务传播属性 -->
+			<tx:method name="delete*" propagation="REQUIRED" />	<!-- 设置了事务传播属性 -->
+			<tx:method name="edit*" propagation="REQUIRED"/>	<!-- 设置了事务传播属性 -->
+			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 定义事务要控制的切面表达式，即：在此切面范围内定义的业务方法事务控制生效  -->
+		<aop:pointcut expression="execution(public * cn.mldn..service..*.*(..))" id="myPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
+	</aop:config>
+	
 </beans>

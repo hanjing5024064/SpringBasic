@@ -3,8 +3,6 @@ package cn.mldn.mldnspring.service;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import cn.mldn.mldnspring.cache.NewsEditCache;
 import cn.mldn.mldnspring.vo.News;
@@ -17,7 +15,6 @@ public interface INewsService {
 	 * @return 新闻数据对象
 	 */
 	@Cacheable(key = "#nid", unless="#result==null")
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public News get(long nid) ;
 	/**
 	 * 数据更新操作
@@ -25,7 +22,6 @@ public interface INewsService {
 	 * @return 更新后的数据
 	 */
 	@NewsEditCache
-	@Transactional(propagation=Propagation.REQUIRED)
 	public News edit(News vo) ;  
 	
 	/**
@@ -34,6 +30,5 @@ public interface INewsService {
 	 * @return 删除成功返回true，否则返回false
 	 */
 	@CacheEvict(key="#nid")
-	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean delete(long nid) ;
 }
