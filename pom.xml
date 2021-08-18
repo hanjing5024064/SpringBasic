@@ -34,6 +34,14 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+		
+		<!-- 事务支持 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+		
 		<!-- ehcache -->
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
