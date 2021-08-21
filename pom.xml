@@ -38,6 +38,11 @@
 	<dependencyManagement>
 		<dependencies>
 		<!-- hibernate -->
+			<dependency><!-- support ehcache 实现二级缓存 -->
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-c3p0</artifactId>
