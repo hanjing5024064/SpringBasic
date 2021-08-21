@@ -15,17 +15,17 @@ import javax.persistence.TemporalType;
 public class Dept implements Serializable {
 	@Id													// 主键列
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	// 主键生成方式
-	private String deptno;	// 字段的映射（属性名称=字段名称）
+	private Long deptno;	// 字段的映射（属性名称=字段名称）
 	private double avgsal;
 	@Temporal(TemporalType.DATE)						// 类型描述
 	private Date createdate;
 	private String dname;
 	private int num;
 	// setter、getter略
-	public String getDeptno() {
+	public Long getDeptno() {
 		return deptno;
 	}
-	public void setDeptno(String deptno) {
+	public void setDeptno(Long deptno) {
 		this.deptno = deptno;
 	}
 	public double getAvgsal() {

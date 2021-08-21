@@ -13,6 +13,8 @@
 			<property name="hibernate.show_sql" value="true" />			<!-- 显示执行SQL -->
 			<property name="hibernate.format_sql" value="true" />		<!-- 格式化SQL语句 -->
 			
+			<!-- 动态更新数据库-->
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
 		</properties>
 	</persistence-unit>
 </persistence>
