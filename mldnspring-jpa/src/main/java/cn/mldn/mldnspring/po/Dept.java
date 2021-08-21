@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
-public class Dept implements Serializable {
+public class Dept implements Serializable {//通过表生成主键
 	@Id													// 主键列
 	@TableGenerator(
 			name="DEPT_GENERATOR" ,						// 定义一个主键生成器的名称
