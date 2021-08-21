@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @SuppressWarnings("serial")
 @Cacheable(true) 								
@@ -23,6 +24,14 @@ public class Dept implements Serializable {
 	private Date createdate;
 	private String dname;
 	private int num;
+	@Version
+	private Long vseq ;
+	public void setVseq(Long vseq) {
+		this.vseq = vseq;
+	}
+	public Long getVseq() {
+		return vseq;
+	}
 	// setter、getter略 
 	public Long getDeptno() {
 		return deptno;

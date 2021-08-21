@@ -10,9 +10,12 @@ import cn.mldn.mldnspring.util.JPAEntityFactory;
 public class TestLock { 
 	@Test
 	public void testFind() throws Exception {
-		JPAEntityFactory.getEntityManager().getTransaction().begin(); 		// 开启事务
-		JPAEntityFactory.getEntityManager().find(Dept.class, 3L,LockModeType.PESSIMISTIC_WRITE) ;	// 使用悲观锁的形式查询数据
-		JPAEntityFactory.getEntityManager().getTransaction().rollback();	// 可以回滚或提交 
+		JPAEntityFactory.getEntityManager().getTransaction().begin();	// 开启事务 
+		Dept dept = JPAEntityFactory.getEntityManager().find(Dept.class, 1L,
+				LockModeType.OPTIMISTIC_FORCE_INCREMENT) ;				// 乐观锁
+		dept.setNum(9999);												// 修改数据
+		JPAEntityFactory.getEntityManager().getTransaction().commit();	// 可以回滚或提交 
 	}
 
+	
 }
