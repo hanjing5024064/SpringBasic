@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,6 +53,11 @@ public class DeptServiceImpl implements IDeptService {
 		map.put("deptCount", pageDept.getTotalElements());			// 保存总记录数
 		map.put("deptPage", pageDept.getTotalPages());				// 保存总页数
 		return map;
+	}
+	
+	@Override
+	public List<Dept> list(Set<Long> ids) {
+		return this.deptDAO.findAllById(ids); 			// 此时直接返回List集合
 	}
 }
 

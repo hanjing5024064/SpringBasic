@@ -2,6 +2,7 @@ package cn.mldn.mldnspring.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import cn.mldn.mldnspring.po.Dept;
 
@@ -12,6 +13,14 @@ public interface IDeptService {
 	 * @return 增加成功返回true，否则返回false
 	 */
 	public boolean add(Dept vo) ;
+	
+	/**
+	 * 根据指定范围的ID进行数据查询
+	 * @param ids 要查询的部门编号
+	 * @return 全部部门信息
+	 */
+	public List<Dept> list(Set<Long> ids) ;
+	
 	/**
 	 * 查询Dept表中的全部数据
 	 * @return Dept持久化对象集合

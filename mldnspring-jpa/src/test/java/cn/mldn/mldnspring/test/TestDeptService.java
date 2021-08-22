@@ -1,6 +1,10 @@
 package cn.mldn.mldnspring.test;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +43,15 @@ public class TestDeptService {
 		System.out.println(this.deptService.listSplit(1, 2));
 	}
 
+	@Test
+	public void testListIn() {
+		Set<Long> allIds = new HashSet<Long>() ;				// 实例化Set集合，用于保存查询ID
+		allIds.addAll(Arrays.asList(1L, 3L, 5L));				// 增加ID数据
+		List<Dept> allDepts = this.deptService.list(allIds) ;	// 数据查询
+		allDepts.forEach((dept)->{							// 迭代输出查询结果
+			System.out.println(dept);
+		}) ;
+	}
 
 	@Test
 	public void testGet() {
