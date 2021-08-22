@@ -15,7 +15,7 @@ public class DeptServiceImpl implements IDeptService {
 	private IDeptDAO deptDAO ;				// 注入IDeptDAO接口实例
 	@Override
 	public boolean add(Dept vo) {
-		return this.deptDAO.doCreate(vo);	// 数据增加
+		return this.deptDAO.save(vo).getDeptno() != null;	// 数据增加
 	}
 	@Override
 	public List<Dept> list() {
