@@ -1,10 +1,6 @@
 package cn.mldn.mldnspring.test;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +33,12 @@ public class TestDeptService {
 			System.out.println(dept);
 		});		
 	}
+	
+	@Test
+	public void testListSplit() {
+		System.out.println(this.deptService.listSplit(1, 2));
+	}
+
 
 	@Test
 	public void testGet() {

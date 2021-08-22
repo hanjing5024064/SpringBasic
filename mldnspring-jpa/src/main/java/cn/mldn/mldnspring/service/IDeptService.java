@@ -1,6 +1,7 @@
 package cn.mldn.mldnspring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.mldn.mldnspring.po.Dept;
 
@@ -22,4 +23,16 @@ public interface IDeptService {
 	 * @return 部门持久化对象
 	 */
 	public Dept get(long id) ;
+	
+	/**
+	 * 实现数据的分页处理
+	 * @param currentPage 当前页 
+	 * @param lineSize 每页的数据行
+	 * @return 包含以下的返回结果：
+	 * 1、key = allDepts、value = 所有的部门信息；
+	 * 2、key = deptCount、value = 统计结果；
+	 * 3、key = deptPage、value = 总页数。
+	 */
+	public Map<String,Object> listSplit(int currentPage,int lineSize) ;
+
 }
