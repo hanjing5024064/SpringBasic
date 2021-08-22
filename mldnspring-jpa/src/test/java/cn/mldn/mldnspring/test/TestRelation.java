@@ -9,7 +9,28 @@ import cn.mldn.mldnspring.po.Company;
 import cn.mldn.mldnspring.po.Dept;
 import cn.mldn.mldnspring.util.JPAEntityFactory;
 
-public class TestRelation { 
+public class TestRelation {
+	
+	@Test
+	public void testFindDept() throws Exception {
+		Dept dept = JPAEntityFactory.getEntityManager().find(Dept.class, 3L) ;	// 只查询部门数据
+		dept.getCompany().getCname() ;			// 此处将查询公司数据
+		JPAEntityFactory.close();				// 关闭数据库连接
+	} 
+	
+	@Test
+	public void testFind() throws Exception {
+		Company company = JPAEntityFactory.getEntityManager().find(Company.class, 2L) ;
+		JPAEntityFactory.close();	
+	}
+	
+	@Test
+	public void testFind2() throws Exception {
+		Company company = JPAEntityFactory.getEntityManager().find(Company.class, 2L) ;
+		company.getDepts().size() ;		// 获取全部部门数据
+		JPAEntityFactory.close();		// 关闭数据库连接
+	}
+	
 	@Test
 	public void testAdd() throws Exception {
 		Company company = new Company();								// 实例化“一”方对象

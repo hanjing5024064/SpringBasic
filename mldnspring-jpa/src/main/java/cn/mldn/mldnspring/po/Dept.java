@@ -3,6 +3,7 @@ package cn.mldn.mldnspring.po;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class Dept implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long deptno;
 	private String dname;
-	@ManyToOne					// 多一对关联
+	@ManyToOne(fetch=FetchType.LAZY)			// 多一对关联
 	@JoinColumn(name="cid")		// 设置关联字段
 	private Company company;
 	// setter、getter、toString()略
