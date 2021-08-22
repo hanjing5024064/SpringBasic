@@ -1,6 +1,7 @@
 package cn.mldn.mldnspring.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,54 +15,22 @@ import cn.mldn.mldnspring.service.IDeptService;
 public class DeptServiceImpl implements IDeptService {
 	@Autowired
 	private IDeptDAO deptDAO ;				// 注入IDeptDAO接口实例
+
 	@Override
 	public boolean add(Dept vo) {
-		return this.deptDAO.save(vo).getDeptno() != null;	// 数据增加
+		return this.deptDAO.save(vo).getDeptno() != null ;
 	}
+
 	@Override
-	public List<Dept> list() {
-		return this.deptDAO.findAll() ; 	// 数据查询
+	public List<Dept> list() { 
+		return (List<Dept>) this.deptDAO.findAll();	// Iterable转为List
 	}
-	
+
 	@Override
 	public Dept get(long id) {
-		return this.deptDAO.findById(id);
+		// 使用Optional接收返回数据，可以避免null数据
+		Optional<Dept> result = this.deptDAO.findById(id) ;
+		return result.get() ;
 	}
-	
-	@Override
-	public List<Dept> gets(Set<Long> ids) {
-		return this.deptDAO.findByIds(ids);
-	}
-	
-	@Override
-	public Dept getIdAndDname(Dept po) {
-		return this.deptDAO.findByIdAndDname(po);
-	}
-	
-	@Override
-	public boolean edit(Dept po) {
-		return this.deptDAO.doEdit(po) > 0;
-	}
-	
-	@Override
-	public boolean remove(long dno) {
-		return this.deptDAO.doRemove(dno) > 0;
-	}
-	
-	@Override
-	public List<Dept> getNumAndDname(int num, String dname) {
-		return this.deptDAO.findByNumAndDname(num, dname);
-	} 
- 
-	@Override
-	public List<Dept> getIn(Set<Long> ids) {
-		return this.deptDAO.findByDeptnoIn(ids);
-	}
-	
-	
-	@Override
-	public List<Dept> listSearch(String keyWord) {
-		return this.deptDAO.findByDnameContainingOrderByDeptnoDesc(keyWord);
-	} 
 }
 
