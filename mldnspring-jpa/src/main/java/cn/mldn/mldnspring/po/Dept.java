@@ -1,55 +1,29 @@
 package cn.mldn.mldnspring.po;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
-
-@SuppressWarnings("serial")
-@Cacheable(true) 								
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 @Entity
+@SuppressWarnings("serial")
 public class Dept implements Serializable {
-	@Id													// 主键列
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long deptno;								// 字段的映射（属性名称=字段名称） 
-	private double avgsal;
-	@Temporal(TemporalType.DATE)						// 类型描述
-	private Date createdate;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long deptno;
 	private String dname;
-	private int num;
-	@Version
-	private Long vseq ;
-	public void setVseq(Long vseq) {
-		this.vseq = vseq;
-	}
-	public Long getVseq() {
-		return vseq;
-	}
-	// setter、getter略 
+	@ManyToOne					// 多一对关联
+	@JoinColumn(name="cid")		// 设置关联字段
+	private Company company;
+	// setter、getter、toString()略
 	public Long getDeptno() {
 		return deptno;
 	}
 	public void setDeptno(Long deptno) {
 		this.deptno = deptno;
-	}
-	public double getAvgsal() {
-		return avgsal;
-	}
-	public void setAvgsal(double avgsal) {
-		this.avgsal = avgsal;
-	}
-	public Date getCreatedate() {
-		return createdate;
-	}
-	public void setCreatedate(Date createdate) {
-		this.createdate = createdate;
 	}
 	public String getDname() {
 		return dname;
@@ -57,16 +31,12 @@ public class Dept implements Serializable {
 	public void setDname(String dname) {
 		this.dname = dname;
 	}
-	public int getNum() {
-		return num;
+	public Company getCompany() {
+		return company;
 	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	@Override
-	public String toString() {
-		return "Dept [deptno=" + deptno + ", avgsal=" + avgsal + ", createdate=" + createdate + ", dname=" + dname
-				+ ", num=" + num + "]";
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 }
+
