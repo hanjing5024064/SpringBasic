@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,10 +14,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Company implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long cid ;
 	private String cname ;
-	@OneToOne(mappedBy="company",cascade=CascadeType.ALL)	// 一对一数据关联，级联更新 
+	@OneToOne(mappedBy="company",cascade=CascadeType.ALL,fetch=FetchType.LAZY)	// 一对一数据关联，级联更新 
 	private Details details ; 			// 公司详情信息 
 	// setter、getter、toString()略
 	public Long getCid() {

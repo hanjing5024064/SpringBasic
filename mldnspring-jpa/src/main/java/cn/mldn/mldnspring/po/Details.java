@@ -3,6 +3,7 @@ package cn.mldn.mldnspring.po;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class Details implements Serializable {
 	private Long did ;
 	private String address ; 
 	private Double capital ;
-	@OneToOne										// 一对一关联
+	@OneToOne(fetch=FetchType.EAGER)								// 一对一关联
 	@JoinColumn(name="cid",
 		referencedColumnName="cid",unique=true)		// 设置关联数据列
 	private Company company ;						// 公司详情属于一个公司
