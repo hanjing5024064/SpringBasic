@@ -34,9 +34,17 @@
 		
 		<hibernate.version>5.2.13.Final</hibernate.version>
 		<hibernate-jpa-2.1-api.version>1.0.2.Final</hibernate-jpa-2.1-api.version>
+		<spring-data-jpa.version>2.0.4.RELEASE</spring-data-jpa.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+		<!-- Spring Data JPA -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring-data-jpa.version}</version>
+			</dependency>
+		
 		<!-- Spring 整合JPA -->
 			<dependency>
 				<groupId>org.springframework</groupId>
