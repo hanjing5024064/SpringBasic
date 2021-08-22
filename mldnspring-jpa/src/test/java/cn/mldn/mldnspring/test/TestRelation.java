@@ -8,7 +8,7 @@ import cn.mldn.mldnspring.util.JPAEntityFactory;
 
 public class TestRelation { 
 	@Test
-	public void testFind() throws Exception {
+	public void testAdd() throws Exception {
 		Company company = new Company() ;								// 创建持久化类对象
 		company.setCname("魔乐科技软件学院");								// 设置属性
 		Details details = new Details() ;								// 创建持久化类对象
@@ -22,6 +22,10 @@ public class TestRelation {
 		JPAEntityFactory.close();										// 关闭连接
 
 	}
-
 	
+	@Test
+	public void testFind() throws Exception {
+		Company company = JPAEntityFactory.getEntityManager().find(Company.class, 3L) ;
+		JPAEntityFactory.close();
+	}
 }
