@@ -47,6 +47,21 @@ public class DeptServiceImpl implements IDeptService {
 	public boolean remove(long dno) {
 		return this.deptDAO.doRemove(dno) > 0;
 	}
-
+	
+	@Override
+	public List<Dept> getNumAndDname(int num, String dname) {
+		return this.deptDAO.findByNumAndDname(num, dname);
+	} 
+ 
+	@Override
+	public List<Dept> getIn(Set<Long> ids) {
+		return this.deptDAO.findByDeptnoIn(ids);
+	}
+	
+	
+	@Override
+	public List<Dept> listSearch(String keyWord) {
+		return this.deptDAO.findByDnameContainingOrderByDeptnoDesc(keyWord);
+	} 
 }
 

@@ -23,14 +23,12 @@ public class TestDeptService {
 	private IDeptService deptService ;					// 注入IDeptService业务接口实例
 	@Test
 	public void testAdd() {
-		for(int i=0;i<5;i++) {
-			Dept po = new Dept() ;							// 实例化持久类对象
-			po.setDname("MLDN教学部");						// 设置数据
-			po.setCreatedate(new Date());					// 设置数据
-			po.setNum(55);									// 设置数据
-			po.setAvgsal(89998.00);							// 设置数据
-			System.out.println(this.deptService.add(po));	// 数据持久化
-		}
+		Dept po = new Dept() ;							// 实例化持久类对象
+		po.setDname("MLDN教学部");						// 设置数据
+		po.setCreatedate(new Date());					// 设置数据
+		po.setNum(55);									// 设置数据
+		po.setAvgsal(89998.00);							// 设置数据
+		System.out.println(this.deptService.add(po));	// 数据持久化
 	} 
 
 	
@@ -77,8 +75,34 @@ public class TestDeptService {
 
 	@Test
 	public void testRemove() {
-		System.out.println(this.deptService.remove(6L));
+		System.out.println(this.deptService.remove(9L));
 	}
 
+	@Test
+	public void testGetNumAndDname() {
+		List<Dept> allDepts = this.deptService.getNumAndDname(55, "MLDN教学部") ;
+		allDepts.forEach((dept)->{								// 迭代输出查询结果
+			System.out.println(dept);
+		}) ;
+	} 
 
-}
+	
+	@Test
+	public void testGetIn() {
+		Set<Long> allIds = new HashSet<Long>() ;				// 实例化Set集合，用于保存查询ID
+		allIds.addAll(Arrays.asList(1L, 3L, 5L));				// 增加ID数据
+		List<Dept> allDepts = this.deptService.getIn(allIds) ;	// 数据查询
+		allDepts.forEach((dept)->{								// 迭代输出查询结果
+			System.out.println(dept);
+		}) ;
+	}
+	
+	@Test
+	public void testListSearch() {
+		List<Dept> allDepts = this.deptService.listSearch("MLDN") ;	// 模糊查询
+		allDepts.forEach((dept)->{									// 迭代输出查询结果
+			System.out.println(dept);
+		}) ;
+	}
+} 
+ 

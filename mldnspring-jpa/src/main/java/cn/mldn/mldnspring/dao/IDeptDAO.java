@@ -66,6 +66,28 @@ public interface IDeptDAO extends Repository<Dept, Long> {		// SpringData数据�
 	@Modifying(clearAutomatically = true) 					// 追加缓存的清除与更新
 	@Query("DELETE FROM Dept AS d WHERE d.deptno=:dno")
 	public int doRemove(@Param("dno") Long deptno);
+	
+	/**
+	 * 根据部门编号与部门名称进行查询
+	 * @param num 部门人数
+	 * @param dname 部门名称
+	 * @return 部门持久化对象集合
+	 */
+	public List<Dept> findByNumAndDname(Integer num, String dname);
+	
+	/**
+	 * 根据指定ID进行部门信息查询
+	 * @param ids 要查询的部门编号
+	 * @return 部门持久化对象集合
+	 */
+	public List<Dept> findByDeptnoIn(Set<Long> ids) ;
+	
+	/**
+	 * 根据部门名称进行模糊查询（Containing表示前后都追加“%”），而后将查询结果按照deptno降序排列
+	 * @param keyWord 查询关键字
+	 * @return 部门持久化对象集合
+	 */
+	public List<Dept> findByDnameContainingOrderByDeptnoDesc(String keyWord);
 
 }
 

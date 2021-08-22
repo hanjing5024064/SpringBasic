@@ -3,6 +3,8 @@ package cn.mldn.mldnspring.service;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.mldn.mldnspring.po.Dept;
 
 public interface IDeptService {
@@ -46,5 +48,26 @@ public interface IDeptService {
 	 * @param dno 要删除的部门编号
 	 * @return 删除成功返回true，否则返回false
 	 */
+	@Transactional
 	public boolean remove(long dno) ;
+	
+	/**
+	 * 根据部门人数与部门名称查询部门信息
+	 * @param num 部门人数
+	 * @param dname 部门名称
+	 * @return 部门持久化对象
+	 */
+	public List<Dept> getNumAndDname(int num,String dname) ;
+	/**
+	 * 查询指定部门编号的部门数据
+	 * @param ids 部门编号集合
+	 * @return 部门持久化对象集合
+	 */
+	public List<Dept> getIn(Set<Long> ids) ;
+	/**
+	 * 根据部门名称进行模糊查询
+	 * @param keyWord 关键字
+	 * @return 部门持久化对象集合
+	 */
+	public List<Dept> listSearch(String keyWord) ;
 }
