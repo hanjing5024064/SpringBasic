@@ -1,6 +1,7 @@
 package cn.mldn.mldnspring.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,31 @@ public class DeptServiceImpl implements IDeptService {
 	public List<Dept> list() {
 		return this.deptDAO.findAll() ; 	// 数据查询
 	}
+	
+	@Override
+	public Dept get(long id) {
+		return this.deptDAO.findById(id);
+	}
+	
+	@Override
+	public List<Dept> gets(Set<Long> ids) {
+		return this.deptDAO.findByIds(ids);
+	}
+	
+	@Override
+	public Dept getIdAndDname(Dept po) {
+		return this.deptDAO.findByIdAndDname(po);
+	}
+	
+	@Override
+	public boolean edit(Dept po) {
+		return this.deptDAO.doEdit(po) > 0;
+	}
+	
+	@Override
+	public boolean remove(long dno) {
+		return this.deptDAO.doRemove(dno) > 0;
+	}
+
 }
 
