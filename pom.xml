@@ -37,6 +37,13 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+		<!-- Spring 整合JPA -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
 		<!-- hibernate -->
 			<dependency><!-- support ehcache 实现二级缓存 -->
 				<groupId>org.hibernate</groupId>
