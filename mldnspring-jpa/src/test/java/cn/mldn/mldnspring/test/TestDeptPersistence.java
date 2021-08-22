@@ -29,10 +29,10 @@ public class TestDeptPersistence {
 		Dept dept = new Dept();						// 定义持久化对象
 		dept.setDeptno(1L);							// 设置主键
 		dept.setDname("MLDN教学研发中心");				// 设置属性内容
-		dept.setAvgsal(7868.88);					// 设置属性内容
-		dept.setCreatedate(new SimpleDateFormat("yyyy-MM-dd")
-				.parse("2006-11-11")); 				// 设置属性内容
-		dept.setNum(8);								// 设置属性内容
+//		dept.setAvgsal(7868.88);					// 设置属性内容
+//		dept.setCreatedate(new SimpleDateFormat("yyyy-MM-dd")
+//				.parse("2006-11-11")); 				// 设置属性内容
+//		dept.setNum(8);								// 设置属性内容
 		// 此时会返回一个当前的持久化对象
 		Dept mergeDept = JPAEntityFactory.getEntityManager().merge(dept); // 数据更新
 		JPAEntityFactory.getEntityManager().getTransaction().commit();	// 事务提交
@@ -55,9 +55,9 @@ public class TestDeptPersistence {
 		JPAEntityFactory.getEntityManager().getTransaction().begin(); // 开启事务
 		Dept dept = new Dept();						// 定义持久化对象
 		dept.setDname("MLDN教学管理部");				// 设置属性内容
-		dept.setAvgsal(8968.88);					// 设置属性内容
-		dept.setCreatedate(new Date());				// 设置属性内容
-		dept.setNum(8);								// 设置属性内容
+//		dept.setAvgsal(8968.88);					// 设置属性内容
+//		dept.setCreatedate(new Date());				// 设置属性内容
+//		dept.setNum(8);								// 设置属性内容
 		JPAEntityFactory.getEntityManager().persist(dept); 				// 数据持久化
 		JPAEntityFactory.getEntityManager().getTransaction().commit();	// 事务提交
 //		JPAEntityFactory.close(); 					// 关闭连接

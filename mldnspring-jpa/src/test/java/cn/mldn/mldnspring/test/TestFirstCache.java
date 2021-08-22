@@ -14,7 +14,7 @@ public class TestFirstCache {
 		Dept dept = JPAEntityFactory.getEntityManager().find(Dept.class, 3L) ;
 		JPAEntityFactory.getEntityManager().getTransaction().begin();	// 开启事务
 		dept.setDname("MLDN教学研发中心");									// 修改持久态对象的属性
-		dept.setNum(30);												// 修改持久态对象的属性
+//		dept.setNum(30);												// 修改持久态对象的属性
 		JPAEntityFactory.getEntityManager().getTransaction().commit();	// 提交事务
 		JPAEntityFactory.close(); 										// 关闭连接
 	}
@@ -25,9 +25,9 @@ public class TestFirstCache {
 		for (int x = 0 ; x < 1000 ; x ++) {
 			Dept dept = new Dept() ;									// 瞬时态对象
 			dept.setDname("极限IT教学部 - " + x);							// 设置数据
-			dept.setAvgsal(8968.88 + x); 								// 设置数据
-			dept.setCreatedate(new Date()); 							// 设置数据
-			dept.setNum(888 + x);										// 设置数据
+//			dept.setAvgsal(8968.88 + x); 								// 设置数据
+//			dept.setCreatedate(new Date()); 							// 设置数据
+//			dept.setNum(888 + x);										// 设置数据
 			JPAEntityFactory.getEntityManager().persist(dept); 			// 数据持久化，自动可以获取ID
 			if (x % 10 == 0) {											// 每10条记录清除一下缓存
 				JPAEntityFactory.getEntityManager().flush(); 			// 强制刷新
@@ -43,9 +43,9 @@ public class TestFirstCache {
 	public void testAdd() { 
 		Dept dept = new Dept() ;					// 创建持久态对象
 		dept.setDname("极限IT教学部");					// 设置属性
-		dept.setAvgsal(8968.88); 					// 设置属性
-		dept.setCreatedate(new Date()); 			// 设置属性
-		dept.setNum(888);							// 设置属性
+//		dept.setAvgsal(8968.88); 					// 设置属性
+//		dept.setCreatedate(new Date()); 			// 设置属性
+//		dept.setNum(888);							// 设置属性
 		JPAEntityFactory.getEntityManager().getTransaction().begin();	// 开启事务
 		// 数据持久化，对象将由瞬时态变为持久态（EntityManager关闭前），并且自动可以获取ID
 		JPAEntityFactory.getEntityManager().persist(dept); 				

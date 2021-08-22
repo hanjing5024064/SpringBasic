@@ -13,7 +13,7 @@ public class TestLock {
 		JPAEntityFactory.getEntityManager().getTransaction().begin();	// 开启事务 
 		Dept dept = JPAEntityFactory.getEntityManager().find(Dept.class, 1L,
 				LockModeType.OPTIMISTIC_FORCE_INCREMENT) ;				// 乐观锁
-		dept.setNum(9999);												// 修改数据
+//		dept.setNum(9999);												// 修改数据
 		JPAEntityFactory.getEntityManager().getTransaction().commit();	// 可以回滚或提交 
 	}
 
