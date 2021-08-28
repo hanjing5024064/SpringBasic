@@ -304,5 +304,6 @@
     <module>mldnspring-jdbc</module>
     <module>mldnspring-jpa</module>
     <module>mldnspring-mvc</module>
-	</modules>
+    <module>mldnspring-springmvc</module>
+  </modules>
 </project>
