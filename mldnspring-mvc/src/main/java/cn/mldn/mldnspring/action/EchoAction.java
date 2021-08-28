@@ -25,7 +25,7 @@ public class EchoAction {						// 自定义Action程序类
 	private Logger log = LoggerFactory.getLogger(EchoAction.class) ;	// 日志记录 
 	@PostMapping("/echo")					// 访问的路径为“echo.action”；
 	public ModelAndView echo(String msg, Integer level, String tags[], Date pubdate) { // 接收请求参数  
-		ModelAndView mav = new ModelAndView("/pages/message/message_show.jsp") ;
+		ModelAndView mav = new ModelAndView("message/message_show") ;			// 不写前缀与后缀
 		mav.addObject("echoMessage", "【ECHO】msg = " + msg) ;					// 设置request数据
 		mav.addObject("echoLevel", "【ECHO】level = " + level) ;					// 设置request数据
 		mav.addObject("echoTags", "【ECHO】tags = " + Arrays.toString(tags)) ;	// 设置request数据
@@ -34,7 +34,7 @@ public class EchoAction {						// 自定义Action程序类
 	}
 	@GetMapping("/echo_pre")
 	public String echoPre() {
-		return "/pages/message/message_input.jsp" ;
+		return "message/message_input";			// 不再需要编写前缀或后缀
 	}
 	
 	@InitBinder 

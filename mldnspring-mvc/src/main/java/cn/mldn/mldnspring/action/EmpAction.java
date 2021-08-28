@@ -39,7 +39,7 @@ public class EmpAction {						// 自定义Action程序类
 	@ResponseBody 			// 使用此注解就表示返回的对象自动变为JSON对象
 	public Object list() {
 		List<Emp> all = new ArrayList<Emp>() ;
-		for (int x = 0 ; x < 10 ; x ++) {
+		for (int x = 0 ; x < 3 ; x ++) {
 			Emp vo = new Emp() ;
 			vo.setEmpno(7369L + x);
 			vo.setEname("李兴华 - " + x);
