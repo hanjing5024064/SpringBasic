@@ -1,6 +1,8 @@
 package cn.mldn.mldnspring.action;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.mldn.mldnspring.vo.Dept;
 import cn.mldn.mldnspring.vo.Emp;
 @Controller										// 定义控制器
 @RequestMapping("/pages/emp/*")					// 定义该类的访问父路径，与方法中的路径进行组合为完整路径
@@ -29,6 +33,23 @@ public class EmpAction {						// 自定义Action程序类
 	@GetMapping("/add_pre")
 	public String addPre() {					// 数据增加前跳转
 		return "/pages/emp/emp_add.jsp" ;
+	}
+	
+	@GetMapping("/list")
+	@ResponseBody 			// 使用此注解就表示返回的对象自动变为JSON对象
+	public Object list() {
+		List<Emp> all = new ArrayList<Emp>() ;
+		for (int x = 0 ; x < 10 ; x ++) {
+			Emp vo = new Emp() ;
+			vo.setEmpno(7369L + x);
+			vo.setEname("李兴华 - " + x);
+			Dept dept = new Dept() ;
+			dept.setDeptno(10L + x);
+			dept.setDname("教学部 - " + x);
+			vo.setDept(dept);
+			all.add(vo) ;
+		}
+		return all ;
 	}
 	
 	// 其它重复定义方法略

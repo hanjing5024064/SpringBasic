@@ -1,7 +1,9 @@
 package cn.mldn.mldnspring.action;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import cn.mldn.mldnspring.vo.Dept;
+import cn.mldn.mldnspring.vo.Emp;
 @Controller										// 定义控制器
 @RequestMapping("/pages/message/*")				// 定义该类的访问父路径，与方法中的路径进行组合为完整路径
 public class EchoAction {						// 自定义Action程序类
