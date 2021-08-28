@@ -1,28 +1,37 @@
 package cn.mldn.mldnspring.action;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import cn.mldn.mldnspring.vo.Dept;
-import cn.mldn.mldnspring.vo.Emp;
 @Controller										// 定义控制器
 @RequestMapping("/pages/message/*")				// 定义该类的访问父路径，与方法中的路径进行组合为完整路径
 public class EchoAction {						// 自定义Action程序类
 	private Logger log = LoggerFactory.getLogger(EchoAction.class) ;	// 日志记录 
+	@Autowired
+	private MessageSource messageSource ;		// 资源读取
+	
+	@GetMapping("/message")
+	public ModelAndView message() {
+		System.out.println(
+				"【echo.input.page】" + this.messageSource.getMessage("echo.input.page", null, Locale.getDefault()));
+		System.out.println("【welcome.info】"
+				+ this.messageSource.getMessage("welcome.info", new Object[] { "李兴华" }, Locale.getDefault()));
+		return null;
+	}
+	
 	@PostMapping("/echo")					// 访问的路径为“echo.action”；
 	public ModelAndView echo(String msg, Integer level, String tags[], Date pubdate) { // 接收请求参数  
 		ModelAndView mav = new ModelAndView("message/message_show") ;			// 不写前缀与后缀
