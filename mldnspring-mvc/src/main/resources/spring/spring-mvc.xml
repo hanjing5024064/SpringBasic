@@ -53,5 +53,11 @@
 		</property>
 	</bean>
 
+	<mvc:interceptors>											<!-- 配置拦截器，可以定义多个 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/pages/**/*.action" />			<!-- 拦截路径 -->
+			<bean class="cn.mldn.util.ValidationInterceptor" />	<!-- 拦截器处理类 -->
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

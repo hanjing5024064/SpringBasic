@@ -26,13 +26,13 @@ public class EmpAction {						// 自定义Action程序类
 	public ModelAndView add(Emp emp) { 			// 接收请求参数
 		this.log.info(emp.toString());			// 信息输出	
 		ModelAndView mav = new ModelAndView() ;
-		mav.setViewName("/pages/emp/emp_do.jsp");
+		mav.setViewName("emp/emp_do");
 		mav.addObject("myemp", emp) ;			// 保存数据
 		return mav ;							// 不进行跳转
 	}
 	@GetMapping("/add_pre")
 	public String addPre() {					// 数据增加前跳转
-		return "/pages/emp/emp_add.jsp" ;
+		return "emp/emp_add" ;
 	}
 	
 	@GetMapping("/list")
