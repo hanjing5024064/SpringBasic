@@ -34,7 +34,7 @@ public class GoodsAction extends AbstractAction {	// 自定义Action程序类
 		return mav ;
 	}
 	
-	@RequestMapping("add")
+	@RequestMapping("goods_add")
 	public ModelAndView add(Goods goods, long iid, String tid[], MultipartFile pic) throws Exception {
 		ModelAndView mav = new ModelAndView(super.getMessage("forward.page")) ;	// 获取跳转路径
 		String msg = "商品数据增加失败！" ;
