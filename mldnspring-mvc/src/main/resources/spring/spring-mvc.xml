@@ -29,6 +29,7 @@
 			<array>
 				<value>cn.mldn.message.pages</value>			<!-- 资源定位 -->
 				<value>cn.mldn.message.messages</value>			<!-- 资源定位 -->
+				<value>cn.mldn.message.validations</value>		<!-- 资源定位 -->
 			</array>
 		</property>
 	</bean>
