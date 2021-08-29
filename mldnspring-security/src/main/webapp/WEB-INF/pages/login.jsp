@@ -15,6 +15,7 @@
 <form action="<%=login_url%>" method="post">
 	用户名：<input type="text" name="mid"><br>
 	密&nbsp;&nbsp;&nbsp;码：<input type="password" name="pwd"><br>
+	验证码：<input type="text" maxlength="4" size="4" name="code"><img src="RandomCode.action"><br>
 	<input type="checkbox" id="remember" name="remember" value="true"/>下次免登录<br>
 	<input type="submit" value="登录">
 	<input type="reset" value="重置">

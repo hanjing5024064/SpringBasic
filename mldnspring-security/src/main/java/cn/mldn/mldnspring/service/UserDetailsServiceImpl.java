@@ -26,6 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private IRoleDAO roleDAO ;					// 注入角色操作接口
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
 		Optional<Member> optional = this.memberDAO.findById(username); // 根据用户ID进行查询
 		if (!optional.isPresent()) {			// 用户信息不存在
 			throw new UsernameNotFoundException("用户“" + username + "”信息不存在，无法进行登录。");
