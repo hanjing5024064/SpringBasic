@@ -10,7 +10,13 @@
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<security:http auto-config="true">	<!-- 启用HTTP安全认证，并且采用自动配置模式 -->
+	<security:http auto-config="false">	<!-- 取消自动配置，才可以启动session管理 -->
+		<security:session-management invalid-session-url="/loginPage.action">
+			<security:concurrency-control 
+				max-sessions="1" 
+				error-if-maximum-exceeded="false" 
+				expired-url="/logoffPage.action"/>
+		</security:session-management>
 		<!-- 定义授权检测失败时的显示页面，一旦出现拒绝访问时将自动进行跳转 --> 
 		<security:access-denied-handler error-page="/WEB-INF/pages/error_page_403.jsp"/>
 		<!-- 定义要拦截的路径，可以是具体路径也可以使用路径匹配符设置要拦截的父路径 -->
