@@ -26,18 +26,13 @@
 			authentication-success-forward-url="/welcomePage.action" 
 			login-page="/loginPage.action" 
 			login-processing-url="/mldn-login"
-			authentication-failure-forward-url="/login.action?error=true"/>
+			authentication-failure-forward-url="/loginPage.action?error=true"/>
 		<security:logout 
 			logout-url="/mldn-logout" 
 			logout-success-url="/logoutPage.action" 
 			delete-cookies="JSESSIONID"/>
 	</security:http>   
 	<security:authentication-manager>			<!-- 定义认证管理器 -->
-		<security:authentication-provider>		<!-- 配置认证管理配置类 -->
-			<security:jdbc-user-service 
-				data-source-ref="dataSource" 
-				users-by-username-query="SELECT mid AS username,password,enabled FROM member WHERE mid=?"
-				authorities-by-username-query="SELECT mid AS username,rid AS authorities FROM member_role WHERE mid=?"/>
-		</security:authentication-provider>
+		<security:authentication-provider user-service-ref="userDetailsService"/>
 	</security:authentication-manager> 
 </beans>

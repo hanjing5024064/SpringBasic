@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd">
+	
+	<!-- 定义SpringDataJPA的数据层接口所在包，该包中的接口一定是Repository子接口 --> 
+	<jpa:repositories base-package="cn.mldn.mldnspring.dao" transaction-manager-ref="transactionManager"/>	
+	
+	<!-- 在整个的JPA的配置文件定义之中最需要配置的就是EntityManagerFactory -->
+	<bean id="entityManagerFactory" 			
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">	<!-- Spring提供工厂类 -->
+		<property name="dataSource" ref="dataSource"/>						<!-- 定义数据源 -->
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />	<!-- JPA核心配置文件 -->
+		<property name="persistenceUnitName" value="MLDNJPA"/>				<!-- 定义持久化单元名称 -->
+		<property name="packagesToScan" value="cn.mldn.mldnspring.po"/>		<!-- 定义PO类的扫描包 -->
+		<property name="persistenceProvider">								<!-- 定义持久化操作的提供类 -->
+			<bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>	<!-- 使用Hibernate实现JPA -->
+		</property>
+		<property name="jpaVendorAdapter">									<!-- 定义JPA操作实现者 -->
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaDialect">										<!-- 定义JPA实现方言 -->
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+		</property>
+	</bean>
+</beans>
