@@ -1,10 +1,22 @@
 package cn.mldn.mldnspring.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.expression.SecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
+import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +24,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -40,7 +56,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JdbcTokenRepositoryImpl tokenRepository ;						// Token存储
 	@Autowired
-	private LoginUrlAuthenticationEntryPoint authenticationEntryPoint ;		// 登录路径 
+	private RoleHierarchy roleHierarchy ;									// 角色继承
+	@Autowired
+	private SecurityExpressionHandler<FilterInvocation> expressionHandler ;	// 表达式处理器
+	@Autowired
+	private AccessDecisionManager accessDecisionManager ;					// 投票管理器
+	@Autowired
+	private AuthenticationEntryPoint entryPoint ; 							// 登录终端
+	@Autowired
+	private LoginUrlAuthenticationEntryPoint authenticationEntryPoint ;
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(this.userDetailsService) ;  				// 基于数据库认证
@@ -49,9 +73,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable() ;												// 禁用CSRF验证
 		http.httpBasic().authenticationEntryPoint(this.authenticationEntryPoint) ;
+		http.authorizeRequests().accessDecisionManager(this.accessDecisionManager) ;
 		// 进行拦截路径的匹配地址配置与授权访问限定
 		http.authorizeRequests()											// 配置认证请求
-			.antMatchers("/pages/message/**").access("hasRole('ADMIN')")	// 授权访问
+			.antMatchers("/pages/message/**").access("hasRole('USER')")	// 授权访问
 			.antMatchers("/welcomePage.action").authenticated() ;				// 认证访问
 		// 进行http注销与错误路径配置，登录操作将由过滤器负责完成
 		http.logout()														// 注销配置
@@ -60,6 +85,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.deleteCookies("JSESSIONID","mldn-rememberme-cookie")			// 删除Cookie
 			.and()															// 配置连接
 			.exceptionHandling()											// 认证错误配置
+			.authenticationEntryPoint(this.entryPoint) 
 			.accessDeniedPage("/WEB-INF/pages/error_page_403.jsp") ;		// 授权错误页
 		http.rememberMe()													// 开启RememberMe
 			.rememberMeParameter("remember")								// 表单参数
@@ -117,4 +143,30 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// session失效策略，同时配置失效后的跳转路径
 		return new SimpleRedirectSessionInformationExpiredStrategy("/logoffPage.action");
 	}
+	@Bean
+	public RoleHierarchy getRoleHierarchy() {								// 角色继承配置
+		RoleHierarchyImpl role = new RoleHierarchyImpl() ;					// 角色继承
+		role.setHierarchy("ROLE_ADMIN > ROLE_USER"); 						// 继承关系
+		return role ;
+	}
+	@Bean
+	public AccessDecisionManager getAccessDecisionManager() {
+		// 将所有要使用到的投票器设置到List集合之中
+		List<AccessDecisionVoter<? extends Object>> decisionVoters = new ArrayList<>() ;
+		decisionVoters.add(new RoleVoter()) ;								// 角色投票器
+		decisionVoters.add(new AuthenticatedVoter()) ;						// 认证投票器
+		decisionVoters.add(new RoleHierarchyVoter(this.roleHierarchy)) ;	// 角色继承投票器
+		WebExpressionVoter webVoter = new WebExpressionVoter() ;
+		webVoter.setExpressionHandler(this.expressionHandler);
+		decisionVoters.add(webVoter) ;										// 表达式解析
+		AffirmativeBased access = new AffirmativeBased(decisionVoters) ;	// 定义投票管理器
+		return access ;
+	}
+	@Bean
+	public SecurityExpressionHandler<FilterInvocation> getSecurityExpressionHandler() {	// 配置表达式
+		DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler() ;
+		expressionHandler.setRoleHierarchy(this.roleHierarchy);				// 设置角色继承
+		return expressionHandler ;
+	}
+	
 }
