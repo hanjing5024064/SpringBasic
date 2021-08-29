@@ -16,6 +16,8 @@
 		<!-- 定义要拦截的路径，可以是具体路径也可以使用路径匹配符设置要拦截的父路径 -->
 		<!-- 表达式“hasRole()”表示的是拥有此角色的用户才可以进行访问，如果没有认证过或没有角色的用户无法访问 -->  
 		<security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
+		<security:intercept-url pattern="/pages/message/**" access="hasRole('USER')"/>
+		<!-- <security:csrf disabled="true"/> -->	<!-- 关闭CSRF校验 -->
 	</security:http>   
 	<security:authentication-manager>			<!-- 定义认证管理器 -->
 		<security:authentication-provider>		<!-- 配置认证管理配置类 -->

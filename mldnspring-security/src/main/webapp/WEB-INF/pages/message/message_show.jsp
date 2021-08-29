@@ -6,6 +6,3 @@
 %>
 <base href="<%=basePath%>" />
 <h1>ECHO消息显示：${echoMessage}</h1> 
-<h1>ECHO消息显示：${echoLevel}</h1> 
-<h1>ECHO消息显示：${echoPubdate}</h1> 
-<h1>ECHO消息显示：${echoTags}</h1> 
