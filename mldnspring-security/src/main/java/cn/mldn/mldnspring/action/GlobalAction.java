@@ -22,16 +22,16 @@ public class GlobalAction {				// 定义全局Action类
 	}
 	@RequestMapping("/welcomePage")								// 访问路径
 	public String welcome() {									// 登录成功路径
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;	// 认证对象
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal() ;	// 获取用户详情
-		String username = userDetails.getUsername() ; 			// 获得用户名
-		this.log.info("用户名：" + username);
-		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities() ; // 获取授权信息
-		this.log.info("授权信息：" + authorities);
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-				.getRequestAttributes()).getRequest() ;			// 获取request内置对象
-		boolean isAdminRole = request.isUserInRole("ADMIN");	// 判断是否有指定授权信息
-		this.log.info("是否具有“ADMIN”角色：" + isAdminRole); 
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;	// 认证对象
+//		UserDetails userDetails = (UserDetails) authentication.getPrincipal() ;	// 获取用户详情
+//		String username = userDetails.getUsername() ; 			// 获得用户名
+//		this.log.info("用户名：" + username);
+//		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities() ; // 获取授权信息
+//		this.log.info("授权信息：" + authorities);
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+//				.getRequestAttributes()).getRequest() ;			// 获取request内置对象
+//		boolean isAdminRole = request.isUserInRole("ROLE_ADMIN");	// 判断是否有指定授权信息
+//		this.log.info("是否具有“ADMIN”角色：" + isAdminRole); 
 		return "welcome";										// 设置跳转路径
 	} 
 	@RequestMapping("/logoutPage")				// 访问路径
