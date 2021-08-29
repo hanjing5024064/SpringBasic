@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<security:http auto-config="true">	<!-- 启用HTTP安全认证，并且采用自动配置模式 -->
+		<!-- 定义授权检测失败时的显示页面，一旦出现拒绝访问时将自动进行跳转 --> 
+		<security:access-denied-handler error-page="/WEB-INF/pages/error_page_403.jsp"/>
+		<!-- 定义要拦截的路径，可以是具体路径也可以使用路径匹配符设置要拦截的父路径 -->
+		<!-- 表达式“hasRole()”表示的是拥有此角色的用户才可以进行访问，如果没有认证过或没有角色的用户无法访问 -->  
+		<security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
+	</security:http>   
+	<security:authentication-manager>			<!-- 定义认证管理器 -->
+		<security:authentication-provider>		<!-- 配置认证管理配置类 -->
+			<security:user-service>				<!-- 创建用户信息 -->
+				<!-- 定义用户名、密码（使用BCryptPasswordEncoder加密器进行加密）、角色信息（必须追加“ROLE_”前缀，否则无法识别） -->
+				<!-- 用户名：admin、密码：hello、角色：ADMIN、USER -->
+				<security:user name="admin" authorities="ROLE_ADMIN,ROLE_USER" password="{bcrypt}$2a$10$2y7higVhnHCn2L8//r/EVed2zi/LrQ.Y.svV.oeLqUM8xfUx5JWQC"/>
+				<!-- 用户名：mldn、密码：java、角色：USER -->
+				<security:user name="mldn" authorities="ROLE_USER" password="{bcrypt}$2a$10$vjXs780rO3rF8ZAXuBL4..c9icL4JDvr3sweCIU9y/QWiYlHgbKGa"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager> 
+</beans>
