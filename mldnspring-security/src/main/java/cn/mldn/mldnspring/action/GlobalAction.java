@@ -20,6 +20,10 @@ public class GlobalAction {				// 定义全局Action类
 	public String login() {				// 登录表单路径
 		return "login";					// 设置跳转路径
 	}
+	@RequestMapping("/logoffPage")				// 访问路径
+	public String error403() {				// 登录表单路径
+		return "logoff";					// 设置跳转路径
+	}
 	@RequestMapping("/welcomePage")								// 访问路径
 	public String welcome() {									// 登录成功路径
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;	// 认证对象
