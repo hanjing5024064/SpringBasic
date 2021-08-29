@@ -11,6 +11,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import cn.mldn.util.validate.ActionValidationUtil;
+
 public class ValidationInterceptor implements HandlerInterceptor {	// 定义拦截器
 	private Logger logger = LoggerFactory.getLogger(ValidationInterceptor.class) ; 
 	
@@ -30,6 +32,18 @@ public class ValidationInterceptor implements HandlerInterceptor {	// 定义拦�
 			} catch (Exception e) {}
 			if (validationRule != null) {	// 验证处理操作，则需要进行验证处理
 				this.logger.info("【验证规则 - ｛"+request.getRequestURI()+"｝】" + validationRule); 
+				ActionValidationUtil avu = new ActionValidationUtil(validationRule, request, this.messageSource) ;
+				if (avu.getErrors().size() > 0) {			// 现在有错误信息
+					request.setAttribute("errors", avu.getErrors());	// 保存错误信息
+					String errorPage = null ; 				// 错误页
+					try {										// 获取当前访问错误页
+						errorPage = this.messageSource.getMessage(validationRuleKey + ".error.page", null, null) ;
+					} catch (Exception e) {					// 如果没有指定的路径则跳转到公共的errorPage
+						errorPage = this.messageSource.getMessage("error.page", null, null) ;
+					}
+					request.getRequestDispatcher(errorPage).forward(request, response);	// 跳转
+					return false ; 
+				} 
 			}
 		}
 		return true ;	// 返回true表示请求继续，而如果返回了false表示不执行后续的Action或拦截器

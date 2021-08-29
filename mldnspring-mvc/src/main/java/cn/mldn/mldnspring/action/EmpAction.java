@@ -30,7 +30,7 @@ public class EmpAction {						// 自定义Action程序类
 		mav.addObject("myemp", emp) ;			// 保存数据
 		return mav ;							// 不进行跳转
 	}
-	@GetMapping("/add_pre")
+	@RequestMapping("/add_pre")
 	public String addPre() {					// 数据增加前跳转
 		return "emp/emp_add" ;
 	}
