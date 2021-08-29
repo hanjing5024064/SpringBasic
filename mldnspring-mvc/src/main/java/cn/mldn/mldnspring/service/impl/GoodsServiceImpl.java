@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import cn.mldn.mldnspring.dao.IGoodsDAO;
 import cn.mldn.mldnspring.dao.IItemDAO;
 import cn.mldn.mldnspring.dao.ITagDAO;
+import cn.mldn.mldnspring.po.Goods;
 import cn.mldn.mldnspring.service.IGoodsService;
 import cn.mldn.mldnspring.service.abs.AbstractService;
 @Service
@@ -26,5 +27,9 @@ public class GoodsServiceImpl extends AbstractService implements IGoodsService {
 		map.put("allTags", this.tagDAO.findAll()) ;		// 查询全部标签信息
 		return map; 
 	}
-
+	@Override
+	public boolean add(Goods vo) {
+		vo.setDflag(0);									// 新增商品信息删除标记为0
+		return this.goodsDAO.save(vo).getGid() != null;	// 商品保存
+	}
 }
