@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 进行事务管理的配置定义，必须配置PlatformTransactionManager接口子类 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />	<!-- 事务控制 -->
+	</bean>	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 事务控制专门提供有切面程序类 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>	<!-- 配置事务控制属性，事务控制是以业务层的方法为主的，方法名称按照统一标准定义 -->
+			<tx:method name="add*" propagation="REQUIRED"/>		<!-- 设置了事务传播属性 -->
+			<tx:method name="remove*" propagation="REQUIRED"/>		<!-- 设置了事务传播属性 -->
+			<tx:method name="delete*" propagation="REQUIRED" />	<!-- 设置了事务传播属性 -->
+			<tx:method name="edit*" propagation="REQUIRED"/>	<!-- 设置了事务传播属性 -->
+			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+			<tx:method name="list*" propagation="REQUIRED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 定义事务要控制的切面表达式，即：在此切面范围内定义的业务方法事务控制生效  -->
+		<aop:pointcut expression="execution(public * cn.mldn..service..*.*(..))" id="myPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
+	</aop:config>
+	
+</beans>

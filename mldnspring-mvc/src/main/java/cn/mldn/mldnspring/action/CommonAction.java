@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CommonAction {						// 公共Action
 	@RequestMapping("/pages/error")				// 访问路径
 	public String error() {
-		return "errors";						// 跳转到/WEB-INF/pages/errors.jsp
+		return "plugins/errors";				// 跳转到/WEB-INF/plugins/pages/errors.jsp
 	} 
 
 }

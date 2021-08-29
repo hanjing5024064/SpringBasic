@@ -18,9 +18,13 @@
 	</bean>
 
 	<!-- 进行所有静态WEB资源的映射路径配置 -->
-	<mvc:resources location="/WEB-INF/js/" mapping="/mvcjs/**"/>
-	<mvc:resources location="/WEB-INF/css/" mapping="/mvccss/**"/>
-	<mvc:resources location="/WEB-INF/images/" mapping="/mvcimages/**"/>
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+	<mvc:resources location="/WEB-INF/jquery/" mapping="/jquery/**"/>
+	<mvc:resources location="/WEB-INF/bootstrap/" mapping="/bootstrap/**"/>
+	<mvc:resources location="/WEB-INF/upload/" mapping="/upload/**"/>
+
 
 
 	<!-- 配置SpringMVC里面要使用的各项资源 -->
