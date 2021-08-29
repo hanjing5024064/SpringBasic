@@ -17,7 +17,20 @@
 		<!-- 表达式“hasRole()”表示的是拥有此角色的用户才可以进行访问，如果没有认证过或没有角色的用户无法访问 -->  
 		<security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
 		<security:intercept-url pattern="/pages/message/**" access="hasRole('USER')"/>
-		<!-- <security:csrf disabled="true"/> -->	<!-- 关闭CSRF校验 -->
+		<!-- 登录成功后的首页，需要在用户已经认证后才可以显示 -->
+		<security:intercept-url pattern="/welcome.action" access="isAuthenticated()"/>
+		<security:csrf disabled="true"/>		<!-- 关闭CSRF校验 -->
+		<security:form-login 
+			username-parameter="mid" 
+			password-parameter="pwd"
+			authentication-success-forward-url="/welcomePage.action" 
+			login-page="/loginPage.action" 
+			login-processing-url="/mldn-login"
+			authentication-failure-forward-url="/login.action?error=true"/>
+		<security:logout 
+			logout-url="/mldn-logout" 
+			logout-success-url="/logoutPage.action" 
+			delete-cookies="JSESSIONID"/>
 	</security:http>   
 	<security:authentication-manager>			<!-- 定义认证管理器 -->
 		<security:authentication-provider>		<!-- 配置认证管理配置类 -->
