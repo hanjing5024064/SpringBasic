@@ -10,7 +10,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 
-	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint">	<!-- 取消自动配置 -->
+	<security:http 
+		auto-config="false"
+		entry-point-ref="authenticationEntryPoint"
+		access-decision-manager-ref="accessDecisionManager">
 		<security:remember-me 
 			remember-me-parameter="remember" 
 			key="mldn-lixinghua" 
@@ -27,11 +30,11 @@
 		<security:access-denied-handler error-page="/WEB-INF/pages/error_page_403.jsp"/> 
 		<!-- 定义要拦截的路径，可以是具体路径也可以使用路径匹配符设置要拦截的父路径 -->
 		<!-- 表达式“hasRole()”表示的是拥有此角色的用户才可以进行访问，如果没有认证过或没有角色的用户无法访问 -->  
-		<!-- <security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
-		<security:intercept-url pattern="/pages/message/**" access="hasRole('USER')"/> -->
+	<security:intercept-url pattern="/pages/message/input.action" access="hasRole('USER')"/>
+	<security:intercept-url pattern="/pages/message/show.action" access="hasRole('ADMIN')"/>
 		<!-- 登录成功后的首页，需要在用户已经认证后才可以显示 -->
-		<!-- <security:intercept-url pattern="/welcome.action" access="isAuthenticated()"/> -->
-		<!-- <security:intercept-url pattern="/**" access="permitAll"/> --> 
+		<security:intercept-url pattern="/welcome.action" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/**" access="permitAll"/>
 		<security:custom-filter ref="validatorCodeFilter" before="FORM_LOGIN_FILTER"/> 
 		<security:csrf disabled="true"/>		<!-- 关闭CSRF校验 -->
 		<security:logout 
@@ -39,8 +42,42 @@
 			logout-success-url="/logoutPage.action" 
 			delete-cookies="JSESSIONID"/>
 	</security:http>
+	<!-- 定义角色继承，由于是固定信息本次将使用“RoleHierarchyImpl” -->
+	<bean id="roleHierarchy" class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+		<property name="hierarchy">		<!-- 定义继承层次关系 -->
+			<value>						<!-- 定义角色层次 -->
+				ROLE_ADMIN > ROLE_USER
+			</value>
+		</property>
+	</bean> 
 	
-	
+	<bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">	<!-- 投票管理器 -->
+		<constructor-arg name="decisionVoters">								<!-- 投票器 -->
+			<list>
+				<!-- 定义角色投票器，进行角色验证 -->
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+				<!-- 定义认证投票器，用于判断用户是否已经认证 -->
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+				<!-- 定义角色继承投票器，此投票器可以在注解中使用 -->
+				<bean class="org.springframework.security.access.vote.RoleHierarchyVoter">
+					<constructor-arg ref="roleHierarchy"/>	<!-- 引用角色继承配置 -->
+				</bean>
+				<!-- 由于需要通过SpEL定义访问继承关系，所以要在WEB表达式投票器中配置角色继承定义 -->
+				<bean
+					class="org.springframework.security.web.access.expression.WebExpressionVoter">
+					<property name="expressionHandler">		<!-- 定义表达式处理器 -->
+						<bean
+							class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+							<!-- 引用角色继承配置 -->
+							<property name="roleHierarchy" ref="roleHierarchy" />
+						</bean>
+					</property>
+				</bean>
+			</list>
+		</constructor-arg> 
+	</bean>
+		
 
 	<!-- 定义登录路径认证作为处理终端 -->
 	<bean id="authenticationEntryPoint"
@@ -69,8 +106,6 @@
 		<property name="defaultFailureUrl" value="/loginPage.action?error=true" />
 	</bean> 
 		
-	
-	
 	<security:authentication-manager id="authenticationManager">			<!-- 定义认证管理器 -->
 		<security:authentication-provider user-service-ref="userDetailsService"/>
 	</security:authentication-manager> 
