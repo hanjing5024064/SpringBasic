@@ -8,6 +8,8 @@
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
 	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint">	<!-- 取消自动配置 -->
 		<security:remember-me 
 			remember-me-parameter="remember" 
@@ -22,14 +24,14 @@
 				expired-url="/logoffPage.action"/>
 		</security:session-management>
 		<!-- 定义授权检测失败时的显示页面，一旦出现拒绝访问时将自动进行跳转 --> 
-		<security:access-denied-handler error-page="/WEB-INF/pages/error_page_403.jsp"/>
+		<security:access-denied-handler error-page="/WEB-INF/pages/error_page_403.jsp"/> 
 		<!-- 定义要拦截的路径，可以是具体路径也可以使用路径匹配符设置要拦截的父路径 -->
 		<!-- 表达式“hasRole()”表示的是拥有此角色的用户才可以进行访问，如果没有认证过或没有角色的用户无法访问 -->  
-		<security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
-		<security:intercept-url pattern="/pages/message/**" access="hasRole('USER')"/>
+		<!-- <security:intercept-url pattern="/pages/info/**" access="hasRole('ADMIN')"/>   
+		<security:intercept-url pattern="/pages/message/**" access="hasRole('USER')"/> -->
 		<!-- 登录成功后的首页，需要在用户已经认证后才可以显示 -->
-		<security:intercept-url pattern="/welcome.action" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/**" access="permitAll"/>
+		<!-- <security:intercept-url pattern="/welcome.action" access="isAuthenticated()"/> -->
+		<!-- <security:intercept-url pattern="/**" access="permitAll"/> --> 
 		<security:custom-filter ref="validatorCodeFilter" before="FORM_LOGIN_FILTER"/> 
 		<security:csrf disabled="true"/>		<!-- 关闭CSRF校验 -->
 		<security:logout 
@@ -37,6 +39,8 @@
 			logout-success-url="/logoutPage.action" 
 			delete-cookies="JSESSIONID"/>
 	</security:http>
+	
+	
 
 	<!-- 定义登录路径认证作为处理终端 -->
 	<bean id="authenticationEntryPoint"

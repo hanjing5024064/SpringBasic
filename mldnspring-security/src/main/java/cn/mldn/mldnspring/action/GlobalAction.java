@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -35,8 +36,8 @@ public class GlobalAction { // 定义全局Action类
 	@RequestMapping("/logoffPage") // 访问路径
 	public String error403() { // 登录表单路径
 		return "logoff"; // 设置跳转路径
-	}
-
+	}  
+	@PreAuthorize("isAuthenticated()")    
 	@RequestMapping("/welcomePage") // 访问路径
 	public String welcome() { // 登录成功路径
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;	// 认证对象
