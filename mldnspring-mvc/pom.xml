@@ -13,6 +13,12 @@
 	<name>mldnspring-mvc Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+	<!-- 连接池 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+			</dependency>
+	
 		<!-- fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
