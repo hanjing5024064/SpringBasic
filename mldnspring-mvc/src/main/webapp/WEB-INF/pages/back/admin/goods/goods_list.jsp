@@ -9,7 +9,7 @@
 	String basePath = request.getScheme() + "://" + 
 		request.getServerName() + ":" + request.getServerPort() + 
 		request.getContextPath() + "/" ;
-	String goods_edit_url = basePath + "pages/back/admin/goods/goods_edit_pre.action" ;
+	String goods_edit_url = basePath + "pages/back/admin/goods/edit_pre.action" ;
 %>
 <base href="<%=basePath%>"/>
 <title>商品管理</title>

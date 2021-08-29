@@ -38,6 +38,12 @@ public class GoodsServiceImpl extends AbstractService implements IGoodsService {
 	}
 	
 	@Override
+	public boolean edit(Goods vo) {
+		this.goodsDAO.save(vo) ;
+		return true ;
+	} 
+	
+	@Override
 	public Map<String, Object> list(String keyWord, int currentPage, int lineSize) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Sort sort = new Sort(Sort.Direction.DESC, "gid"); 					// 设置gid字段为降序排列
@@ -58,5 +64,16 @@ public class GoodsServiceImpl extends AbstractService implements IGoodsService {
 		map.put("allItems", itemMap) ;										// 商品分类
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> preEdit(long id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("allItems", this.itemDAO.findAll());						// 查询所有商品分类
+		map.put("allTags", this.tagDAO.findAll());							// 查询所有商品标签
+		map.put("goods", this.goodsDAO.findById(id).get());					// 查询指定商品信息
+		map.put("goodsTags", this.goodsDAO.findTidByGoods(id));				// 查询指定商品拥有的标签编号
+		return map;
+	}
+
 
 }

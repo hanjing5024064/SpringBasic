@@ -14,5 +14,8 @@ public interface IGoodsDAO extends JpaRepository<Goods, Long> {
 	public List<Goods> findSplit(@Param(value = "keyWord") String keyWord,Pageable page);
 	@Query("SELECT COUNT(g) FROM Goods AS g WHERE g.name LIKE :#{'%' + #keyWord + '%'}")
 	public Long getSplitCount(@Param(value = "keyWord") String keyWord) ;
+	
+	@Query(nativeQuery = true, value = "SELECT tid FROM goods_tag WHERE gid=:gid")
+	public List<Long> findTidByGoods(@Param(value = "gid") Long gid) ;
 }
   

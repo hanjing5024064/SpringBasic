@@ -49,7 +49,7 @@
 								<select id="iid" name="iid" class="form-control"> 
 									<option value="">========= 请选择商品所属分类 =========</option>
 									<c:forEach items="${allItems}" var="item">
-										<option value="${item.iid}" ${item.iid==goods.iid?"selected":""}>${item.title}</option>
+										<option value="${item.iid}" ${item.iid==goods.item.iid?"selected":""}>${item.title}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -71,7 +71,7 @@
 						<div class="form-group" id="picDiv">
 							<label class="col-md-2 control-label" for="pic">商品图片：</label>
 							<div class="col-md-5">
-								<img src="upload/goods/${goods.photo}"><br>
+								<img src="upload/${goods.photo}"><br>
 								<input type="file" id="pic" name="pic" class="form-control" placeholder="请选择商品宣传图">
 							</div>
 							<span class="col-md-5" id="picSpan">如果不修改可以不选择</span>

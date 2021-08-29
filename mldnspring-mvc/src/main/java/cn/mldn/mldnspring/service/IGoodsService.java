@@ -31,5 +31,24 @@ public interface IGoodsService {
 	 * 3、key = allItems、value = 全部的分类信息（Map集合）
 	 */
 	public Map<String, Object> list(String keyWord, int currentPage, int lineSize) ;
+	
+	/**
+	 * 进行商品修改前的数据查询操作
+	 * @return 返回的数据包含有如下内容：
+	 * key = allItems、value = 所有的商品分类。
+	 * key = allTags、value = 所有的商品标签。
+	 * key = goods、value = 要修改的商品信息
+	 * key = allTids、value = 商品标签
+	 */
+	public Map<String,Object> preEdit(long id) ;
+
+	
+	/**
+	 * 实现商品数据的修改处理：
+	 * @param vo 要追加的商品信息
+	 * @return 修改成功返回true，否则返回false
+	 */
+	public boolean edit(Goods vo) ;
+
 
 }
