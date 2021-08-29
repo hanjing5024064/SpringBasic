@@ -21,11 +21,11 @@ String basePath = request.getScheme() + "://" +
 	String column = (String) request.getAttribute("column") ;
 	String keyWord = (String) request.getAttribute("keyWord") ;
 	long allRecorders = 0 ;
-	long currentPage = 1 ;
+	int currentPage = 1 ;
 	long allPages = 1 ;
 	int lineSize = 5 ;
 	try {
-		currentPage = (Long) request.getAttribute("currentPage") ;
+		currentPage = (Integer) request.getAttribute("currentPage") ;
 	} catch (Exception e) {}
 	try {
 		allRecorders = (Long) request.getAttribute("allRecorders") ;

@@ -19,6 +19,7 @@ import cn.mldn.mldnspring.po.Item;
 import cn.mldn.mldnspring.po.Tag;
 import cn.mldn.mldnspring.service.IGoodsService;
 import cn.mldn.util.action.abs.AbstractAction;
+import cn.mldn.util.web.SplitPageUtil;
 @Controller											// 定义控制器
 @RequestMapping("/pages/back/admin/goods/*")		// 父路径
 public class GoodsAction extends AbstractAction {	// 自定义Action程序类
@@ -67,4 +68,13 @@ public class GoodsAction extends AbstractAction {	// 自定义Action程序类
 		mav.addObject("url", url) ;					// 保存跳转路径
 		return mav ;
 	}
+	
+	@RequestMapping("goods_list") 
+	public ModelAndView list() {
+		ModelAndView mav = new ModelAndView("back/admin/goods/goods_list") ;
+		SplitPageUtil spu = new SplitPageUtil("/pages/back/admin/goods/list.action") ;
+		mav.addAllObjects(this.goodsService.list(spu.getKeyWord(), spu.getCurrentPage(), spu.getLineSize())) ;
+		return mav ; 
+	}
+
 }

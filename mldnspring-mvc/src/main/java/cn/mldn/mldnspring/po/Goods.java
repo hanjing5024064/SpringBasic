@@ -22,7 +22,7 @@ public class Goods implements Serializable {
 	private Double price ;
 	private String photo ;
 	private Integer dflag ;
-	@ManyToOne					// 多对一关联
+	@ManyToOne(fetch=FetchType.LAZY)					// 多对一关联 
 	@JoinColumn(name="iid")		// 设置关联字段
 	private Item item ;
 	@ManyToMany(fetch = FetchType.LAZY)					// 启用延迟加载

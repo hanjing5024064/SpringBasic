@@ -6,8 +6,8 @@
 	String basePath = request.getScheme() + "://" + 
 		request.getServerName() + ":" + request.getServerPort() + 
 		request.getContextPath() + "/" ;
-	String goods_list_url = basePath + "pages/back/admin/goods/goods_list.action" ;
-	String goods_add_url = basePath + "pages/back/admin/goods/goods_add.action" ;
+	String goods_list_url = basePath + "pages/back/admin/goods/list.action" ;
+	String goods_add_url = basePath + "pages/back/admin/goods/add.action" ;
 %>
 <base href="<%=basePath%>"/>
 <title>商品管理</title>
@@ -53,7 +53,7 @@
 								</select>
 							</div>
 							<span class="col-md-5" id="iidSpan">*</span>
-						</div>
+						</div> 
 						<div class="form-group" id="tagDiv">
 							<label class="col-md-2 control-label" for="tag">商品标签：</label>
 							<div class="col-md-5">
