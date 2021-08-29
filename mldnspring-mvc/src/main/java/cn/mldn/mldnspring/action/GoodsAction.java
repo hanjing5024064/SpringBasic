@@ -1,8 +1,10 @@
 package cn.mldn.mldnspring.action;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -122,5 +124,25 @@ public class GoodsAction extends AbstractAction {	// 自定义Action程序类
 		mav.addAllObjects(map) ;										// 保存商品信息
 		return mav ;
 	}
+	
+	@RequestMapping("goods_delete")
+	public ModelAndView delete(String ids) {
+		String msg = "商品数据删除失败！" ;
+		String url = "/pages/back/admin/goods/list.action" ;	// 显示后的跳转路径
+		ModelAndView mav = new ModelAndView("plugins/forward") ;
+		// 传递进来的是全部要删除的商品ID，此时多个商品ID之间使用“,”分割
+		String idData [] = ids.split(",") ;						// 根据“,”拆分数据
+		Set<Long> gids = new HashSet<Long>() ;					// 保存所有要删除的商品ID
+		for (int x = 0 ; x < idData.length ; x ++) {
+			gids.add(Long.parseLong(idData[x])) ;				// 保存商品ID
+		}
+		if (this.goodsService.remove(gids)) {
+			msg = "商品数据删除成功！" ;
+		}
+		mav.addObject("msg", msg) ;								// 保存提示信息
+		mav.addObject("url", url) ;								// 保存跳转路径
+		return mav ;
+	}  
+
 
 }

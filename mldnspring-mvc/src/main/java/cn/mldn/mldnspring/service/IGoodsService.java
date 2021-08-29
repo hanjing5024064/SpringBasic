@@ -1,6 +1,7 @@
 package cn.mldn.mldnspring.service;
 
 import java.util.Map;
+import java.util.Set;
 
 import cn.mldn.mldnspring.po.Goods;
 
@@ -50,5 +51,11 @@ public interface IGoodsService {
 	 */
 	public boolean edit(Goods vo) ;
 
+	/**
+	 * 进行商品信息的删除处理
+	 * @param gids 要删除的商品编号
+	 * @return 如果没有商品商品或删除失败返回false 
+	 */
+	public boolean remove(Set<Long> gids) ;
 
 }
